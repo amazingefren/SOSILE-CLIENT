@@ -1,0 +1,29 @@
+.container{
+  height: 100vh;
+  width: 100vw;
+  background-color: black;
+  color: white;
+  box-sizing:border-box !important;
+  overflow: hidden;
+}
+.main{
+  display:flex;
+  flex-flow: column;
+  width: 100%;
+  height: 100%;
+}
+.mainLeft{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+
+}
+.mainRight{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
