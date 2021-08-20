@@ -1,6 +1,6 @@
 import LoginStyle from "../../styles/home/Login.module.scss";
 import { gql, useMutation, useQuery } from "@apollo/client";
-import { AuthLogin } from "../../graphql/auth/auth.query";
+import { AuthCheck, AuthLogin } from "../../graphql/auth/auth.query";
 import { FormEvent, useEffect, useState } from "react";
 
 const Login = () => {
@@ -21,6 +21,15 @@ const Login = () => {
     },
     onError: (e) => {
       console.log(e.message);
+    },
+  });
+
+  const { data } = useQuery(AuthCheck, {
+    onError: (e) => {
+      console.log(e);
+    },
+    onCompleted: (data) => {
+      console.log(data);
     },
   });
 
