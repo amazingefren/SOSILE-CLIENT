@@ -37,7 +37,7 @@ const ME = (
       }
     }
   `;
-  return payload;
+  return gql`${payload}`;
 };
 
 export { ME };
