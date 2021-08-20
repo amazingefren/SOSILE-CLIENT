@@ -11,10 +11,10 @@ export interface Post {
   replies?: Post[];
   parents?: Post[];
   isReply?: boolean;
-  _count?: PostCounts;
+  _count: PostCounts;
 }
 export class PostFields {
-  id?: boolean = true;
+  id = true;
   author?: boolean = false;
   content?: boolean = false;
   date?: boolean = false;
@@ -24,6 +24,7 @@ export class PostFields {
   replies?: boolean = false;
   parents?: boolean = false;
   isReply?: boolean = false;
+  _count = true;
 }
 export class PostCounts {
   likes?: boolean = false;

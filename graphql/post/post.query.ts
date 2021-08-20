@@ -3,7 +3,10 @@ import { PostCounts, PostFields } from "../models/post.model";
 
 export function USER_POST(fields: PostFields, counts?: PostCounts) {
   let query = ``;
-  if (counts?.likes || counts?.replies) {
+
+  // @TODO PostIncludeOpts
+
+  /* if (counts?.likes || counts?.replies) {
     query = `
       query USER_POST{
         userPosts(
@@ -21,7 +24,7 @@ export function USER_POST(fields: PostFields, counts?: PostCounts) {
     query = `
       query USER_POST { userPosts { ${Object.keys(fields)} }}
     `;
-  }
+  } */
   return gql`
     ${query}
   `;

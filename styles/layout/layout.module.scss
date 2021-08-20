@@ -24,6 +24,7 @@
 
 #child {
   grid-area: child;
+  overflow-y: scroll;
 }
 #top {
   grid-area: top;
