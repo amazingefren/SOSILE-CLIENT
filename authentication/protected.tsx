@@ -3,6 +3,7 @@ import router from "next/dist/client/router";
 import React, { useEffect, useState } from "react";
 import { AuthCheck } from "../graphql/auth/auth.query";
 import { User, UserAuthIncludeOpts, UserRequestOpts } from "../graphql/models/user.model";
+import { USER_POST } from "../graphql/post/post.query";
 import { ME } from "../graphql/user/user.query";
 
 const protect = ({
@@ -10,19 +11,19 @@ const protect = ({
   user = null,
 }: {
   to: null | string;
-  user: null | { opts: UserAuthIncludeOpts; data: UserRequestOpts};
+  user: null | {fields: UserRequestOpts};
 }) => {
   const [isAuth, setIsAuth] = useState<null | boolean>(null);
   const [User, setUser] = useState<null | User>(null);
 
   if (user) {
-    useQuery(ME(user.opts, user.data), {
+    useQuery(ME(user.fields), {
       onError: () => {
         setIsAuth(false);
       },
       onCompleted: (data) => {
-        setIsAuth(true);
         setUser(data.whoAmI);
+        setIsAuth(true);
       },
     });
   } else {
