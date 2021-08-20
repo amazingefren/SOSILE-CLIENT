@@ -1,15 +1,28 @@
 import { gql } from "@apollo/client";
-import { PostFields } from '../models/post.model'
+import { PostCounts, PostFields } from "../models/post.model";
 
-export function USER_POST(fields: PostFields){
-  const keys = Object.keys(fields);
-  const query = gql`
-    query USER_POST {
-      userPosts {
-        ${keys}
+export function USER_POST(fields: PostFields, counts?: PostCounts) {
+  let query = ``;
+  if (counts?.likes || counts?.replies) {
+    query = `
+      query USER_POST{
+        userPosts(
+          likes: ${counts.likes?.valueOf() || "false"}
+          replies: ${counts.replies?.valueOf() || "false"}
+        ){
+          ${Object.keys(fields)}
+          _count {
+            ${Object.keys(counts)}
+          }
+        }
       }
-    }
-  `
-  return query
+    `;
+  } else {
+    query = `
+      query USER_POST { userPosts { ${Object.keys(fields)} }}
+    `;
+  }
+  return gql`
+    ${query}
+  `;
 }
-

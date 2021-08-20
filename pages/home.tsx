@@ -13,8 +13,12 @@ const Home = () => {
   });
 
   const { data: postData, loading: postLoading } = useQuery(
-    USER_POST({ content: true })
+    USER_POST({ content: true }, {likes: true})
   );
+
+  useEffect(()=>{
+    console.log(postData)
+  }, [postData])
 
   return (
     <Layout title={user?.username + "@Home" || ""}>
@@ -23,7 +27,7 @@ const Home = () => {
           {postLoading && <div>SPINNER</div>}
           {postData?.userPosts &&
             postData.userPosts.map((post: Post) => {
-              return <div>{post.content}</div>;
+              return <div>{post.content} likes: {post._count?.likes}</div>;
             })}
         </div>
       </div>

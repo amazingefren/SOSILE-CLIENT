@@ -10,7 +10,8 @@ export interface Post {
   likes?: User[];
   replies?: Post[];
   parents?: Post[];
-  isReply: boolean;
+  isReply?: boolean;
+  _count?: PostCounts;
 }
 export class PostFields {
   id?: boolean = true;
@@ -23,6 +24,10 @@ export class PostFields {
   replies?: boolean = false;
   parents?: boolean = false;
   isReply?: boolean = false;
+}
+export class PostCounts {
+  likes?: boolean = false;
+  replies?: boolean = false;
 }
 export interface PostHistory {
   id: number;
