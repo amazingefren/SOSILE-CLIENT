@@ -1,34 +1,49 @@
-import React from 'react'
+import React, { useState } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import HomeStyles from '../styles/home/Home.module.scss'
+import IndexStyle from '../styles/index/index.module.scss'
 import Login from '../components/home/Login'
+import { useQuery } from '@apollo/client'
+import { AuthCheck } from '../graphql/auth/auth.query'
+import router from 'next/dist/client/router'
 
-const Home: NextPage = () => {
+const Index: NextPage = () => {
+  const [isAuth, setIsAuth ] = useState<null|boolean>(null)
+  useQuery(AuthCheck, {
+    onError: (e) => {
+      console.log(e);
+      setIsAuth(false)
+    },
+    onCompleted: (data) => {
+      if(data.AuthCheck === true){
+        // redirect without history stack
+        router.replace('/home')
+      }
+    },
+  });
+
   return (
-    <div className={HomeStyles.container}>
+    <div className={IndexStyle.container}>
       <Head>
         <title>Sosile Client</title>
         <meta name="description" content="sosile-client" />
       </Head>
 
-      <main className={HomeStyles.main}>
-        <div className={HomeStyles.mainLeft}>
+      {isAuth === false &&
+      <main className={IndexStyle.main}>
+        <div className={IndexStyle.mainLeft}>
         <h1>SOSILE</h1>
         </div>
-        <div className={HomeStyles.mainRight}>
-          <Login/>
-          <div>
-          Sign Up
+          <div className={IndexStyle.mainRight}>
+            <Login/>
+            <div>
+            Sign Up
+            </div>
           </div>
-        </div>
       </main>
-
-      <footer className={HomeStyles.footer}>
-        SOSILE AND FRIENDS
-      </footer>
+      }
     </div>
   )
 }
 
-export default Home
+export default Index
