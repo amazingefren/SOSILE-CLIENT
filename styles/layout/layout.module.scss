@@ -1,0 +1,36 @@
+#root {
+  background-color: #121212;
+  color: white;
+  display: flex;
+  justify-content: center;
+}
+
+#container {
+  display: grid;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  grid-template-rows: 100px auto auto 100px;
+  grid-template-columns: 10% auto;
+  grid-template-areas:
+    "top top"
+    "nav child"
+    "nav child"
+    "bot bot";
+    max-width: 1600px;
+    box-sizing:border-box !important;
+    border: 1px solid red;
+}
+
+#child {
+  grid-area: child;
+}
+#top {
+  grid-area: top;
+}
+#nav {
+  grid-area: nav;
+}
+#bot{
+  grid-area: bot;
+}

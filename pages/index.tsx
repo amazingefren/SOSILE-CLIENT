@@ -25,7 +25,7 @@ const Index: NextPage = () => {
   return (
     <div className={IndexStyle.container}>
       <Head>
-        <title>Sosile Client</title>
+        <title>Sosile</title>
         <meta name="description" content="sosile-client" />
       </Head>
 
