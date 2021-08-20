@@ -1,16 +1,13 @@
-import Head from "next/head";
-import React from "react";
+import React, { useEffect } from "react";
 import { protect } from "../authentication/protected";
 import Layout from "../components/layout/Layout";
 import HomeStyles from "../styles/home/home.module.scss";
 
 const Home = () => {
-  protect({ to: "/" });
+  const { user } = protect({ to: "/", user: true });
   return (
-    <Layout title={"@ Home"}> 
-      <div id={HomeStyles.container}>
-        hello world
-      </div>
+    <Layout title={"@ Home"}>
+      <div id={HomeStyles.container}>Welcome Back {user?.username}</div>
     </Layout>
   );
 };
