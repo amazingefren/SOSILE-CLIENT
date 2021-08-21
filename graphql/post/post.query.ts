@@ -1,8 +1,8 @@
-import { gql } from "@apollo/client";
-import { PostCounts, PostFields } from "../models/post.model";
+/* import { gql } from "@apollo/client";
+import { PostCounts, PostFields, PostIncludeOpts } from "../models/post.model";
 
-export function USER_POST(fields: PostFields, counts?: PostCounts) {
-  let query = ``;
+export function USER_POST(fields: PostFields, opts: PostIncludeOpts) {
+  let query = ``; */
 
   // @TODO PostIncludeOpts
 
@@ -25,7 +25,16 @@ export function USER_POST(fields: PostFields, counts?: PostCounts) {
       query USER_POST { userPosts { ${Object.keys(fields)} }}
     `;
   } */
+
+  /* console.log(`this is a test (${JSON.stringify(opts).replaceAll("\"", "")})`);
+
   return gql`
-    ${query}
-  `;
-}
+  query test{
+    userPosts
+    {
+      content
+      ${query}
+    }
+  }
+    `;
+} */

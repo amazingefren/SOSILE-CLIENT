@@ -4,7 +4,7 @@ export interface Post {
   id: number;
   author?: User;
   content: string;
-  date: Date;
+  date: string;
   updated: Date;
   history?: PostHistory[];
   likes?: User[];
@@ -26,6 +26,15 @@ export class PostFields {
   isReply?: boolean = false;
   _count = true;
 }
+
+export class PostIncludeOpts {
+  author?: boolean = false;
+  history?: boolean = false;
+  likes?: boolean = false;
+  replies?: boolean = false;
+  parents?: boolean = false;
+}
+
 export class PostCounts {
   likes?: boolean = false;
   replies?: boolean = false;

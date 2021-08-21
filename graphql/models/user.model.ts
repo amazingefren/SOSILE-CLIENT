@@ -1,5 +1,9 @@
 import { Post } from "./post.model";
 
+
+export interface UserCount{
+  followers: number;
+}
 export interface User {
   id: number;
   username: string;
@@ -10,6 +14,7 @@ export interface User {
   replies?: Post[];
   following?: User[];
   followers?: User[];
+  _count?: UserCount;
 }
 export interface UserProfile {
   id: number;
