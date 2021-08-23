@@ -1,5 +1,8 @@
+@import "../theme.scss";
 #container{
-  background-color: black;
+  background-color: $themeBg;
+  background-color: $themeBg;
+  color: $themeFg;
   color: white;
   width: 100%;
   height: 100%;
@@ -7,12 +10,14 @@
 
 // Temp
 #postContainer{
-  background-color: #202020;
+  background-color: $themeBg;
+  color: $themeFg;
   color: white;
 }
 
 .post{
   height: 200px;
   margin: 10px;
-  background-color: #181818;
+  background-color: $themeBg;
+  color: $themeFg;
 }

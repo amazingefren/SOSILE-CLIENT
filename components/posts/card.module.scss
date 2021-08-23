@@ -1,10 +1,26 @@
+@import "../../styles/theme.scss";
 .container {
+  background-color: $themeBg;
+  color: $themeFg;
   display: grid;
   border: 1px solid blue;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding: 50px;
+  padding-right: 50px;
+}
+
+.postUserImage {
+  width: 60px;
+  background-color: $themeBlue;
+  border-radius: 35%;
+  margin: 5px 5px 5px 0;
+  height: 60px;
 }
 
 .postBottom {
-  background-color: #191919;
+  background-color: $themeBg;
+  color: $themeFg;
   height: 50px;
   display: flex;
   justify-content: flex-end;
@@ -16,19 +32,25 @@
 }
 
 .postTop {
-  background-color: #000000;
+  // background-color: #000000;
   display: flex;
   flex-flow: row;
   flex-wrap: nowrap;
-  justify-content: space-between;
-  height: 50px;
+  justify-content: flex-start;
+  height: 70px;
   align-content: center;
   .postUsername {
     font-size: 1.5em;
   }
   .postTime {
-    font-size: 1.2em;
+    font-size: 0.8em;
   }
+}
+
+.postUserNest {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .postFollowerCount {

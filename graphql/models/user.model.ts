@@ -7,6 +7,7 @@ export interface UserCount{
 export interface User {
   id: number;
   username: string;
+  displayName: string;
   email: string;
   profile?: UserProfile;
   posts?: Post[];

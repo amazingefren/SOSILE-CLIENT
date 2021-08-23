@@ -1,37 +1,58 @@
+@import "../theme.scss";
+$topHeight: 75px;
+$navWidth: 50px;
+
 #root {
-  background-color: #121212;
-  color: white;
+  background-color: $themeBg;
+  color: $themeFg;
   display: flex;
   justify-content: center;
+  min-height: 100vh;
+  width: 100vw;
+  main{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 2000px;
+  }
 }
 
 #container {
   display: grid;
-  height: 100vh;
+  // height: 100vh;
   width: 100vw;
-  overflow: hidden;
-  grid-template-rows: 100px auto auto 100px;
-  grid-template-columns: 10% auto;
+  height: 100vh;
+  position:fixed;
+  // border: 2px solid black;
+  // overflow: hidden;
+  grid-template-rows: $topHeight auto auto;
+  // position:fixed;
+  // background-color:$themeBg;
+  // color: $themeFg;
+  grid-template-columns: $navWidth auto;
   grid-template-areas:
     "top top"
-    "nav child"
-    "nav child"
-    "bot bot";
-    max-width: 1600px;
+    "nav free"
+    "nav free";
+    max-width: 2000px;
     box-sizing:border-box !important;
-    border: 1px solid red;
+    // border: 1px solid $themeRed;
 }
 
 #child {
-  grid-area: child;
-  overflow-y: scroll;
+  width: 100%;
+  margin-left: $navWidth;
+  margin-top: $topHeight;
 }
 #top {
+  position:relative;
+  background-color:$themeBgAlt;
+  // border: 1px solid red;
   grid-area: top;
 }
+
 #nav {
+  // border: 1px solid red;
+  background-color:$themeBgAlt;
   grid-area: nav;
-}
-#bot{
-  grid-area: bot;
 }

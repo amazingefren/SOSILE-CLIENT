@@ -10,8 +10,10 @@ function convertDate(date: string) {
       return seconds + "s";
     case seconds / 60 < 60:
       return Math.floor(seconds / 60) + "m";
-    case seconds / 60 / 60 < 60:
+    case seconds / 60 / 60 < 24:
       return Math.floor(seconds / 60 / 60) + "h";
+    case seconds / 60 / 60 / 24 < 30:
+      return Math.floor(seconds / 60 / 60 / 24 ) + "d";
   }
 }
 
@@ -19,9 +21,13 @@ const PostCard = ({ props }: { props: Post }) => {
   return (
     <div className={Style.container}>
       <div className={Style.postTop}>
-        <span className={Style.postUsername}>{props.author?.username}</span>
-        <span className={Style.postFollowerCount}> {props.author?._count?.followers} FOLLOWERS </span>
-        <span className={Style.postTime}>{convertDate(props.date)}</span>
+        <div className={Style.postUserImage}></div>
+        <div className={Style.postUserNest}>
+          <div className={Style.postDisplayName}>{props.author?.displayName}</div>
+          <div className={Style.postUsername}>{props.author?.username}</div>
+          <div className={Style.postFollowerCount}> {props.author?._count?.followers} FOLLOWERS </div>
+        </div>
+        <div className={Style.postTime}>{convertDate(props.date)}</div>
       </div>
       <div className={Style.postMiddle}>{props.content}</div>
       <div className={Style.postBottom}>{props._count.likes} likes</div>

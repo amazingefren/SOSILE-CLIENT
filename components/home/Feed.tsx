@@ -12,6 +12,7 @@ const FEED_QUERY = gql`
       date
       author {
         username
+        displayName
         id
         _count {
           followers
@@ -37,7 +38,16 @@ const HomePostFeed = () => {
 
       {postData?.getFeed &&
         postData?.getFeed.map((post: Post) => {
-          return (<PostCard key={post.id} props={post}/>)
+          return (
+            <>
+            <PostCard key={post.id} props={post}/>
+            <PostCard key={post.id} props={post}/>
+            <PostCard key={post.id} props={post}/>
+            <PostCard key={post.id} props={post}/>
+            <PostCard key={post.id} props={post}/>
+            <PostCard key={post.id} props={post}/>
+            </>
+)
           // return (
           //   <div key={post.id} className={HomeStyles.post}>
           //     <div>{post.author?.username}</div>

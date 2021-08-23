@@ -1,0 +1,27 @@
+@import "../../styles/theme.scss";
+#container{
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+}
+
+#sosile{
+  width: auto;
+  display:flex;
+  align-items: center;
+}
+
+#logo{
+  margin:0;
+  content: '';
+  height: 50px;
+  width: 50px;
+  border-radius: 30%;
+  background-color: $themeFg;
+}
+
+#name{
+  margin-left: 10px;
+  font-size: 1.4em;
+}
