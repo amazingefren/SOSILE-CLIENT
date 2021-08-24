@@ -1,7 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
-import { Post } from "../../graphql/models/post.model";
+import { FeedPost } from "../../graphql/models/post.model";
 import HomeStyles from "../../styles/home/home.module.scss";
-import PostCard from '../posts/Card'
+import PostCard from "../posts/Card";
 
 const FEED_QUERY = gql`
   query UserFeed {
@@ -18,6 +18,7 @@ const FEED_QUERY = gql`
           followers
         }
       }
+      liked
       _count {
         comments
         likes
@@ -27,27 +28,18 @@ const FEED_QUERY = gql`
 `;
 
 const HomePostFeed = () => {
-  const {data: postData, loading: postLoading} = useQuery(FEED_QUERY, {
-    onCompleted:(data)=>{
-      console.log(data)
-    }
-  })
+  const { data: postData, loading: postLoading } = useQuery(FEED_QUERY, {
+    onCompleted: (data) => {
+      console.log(data);
+    },
+  });
   return (
     <div id={HomeStyles.postContainer}>
       {postLoading && <div>SPINNER</div>}
 
       {postData?.getFeed &&
-        postData?.getFeed.map((post: Post) => {
-          return (
-            <>
-            <PostCard key={post.id} props={post}/>
-            <PostCard key={post.id} props={post}/>
-            <PostCard key={post.id} props={post}/>
-            <PostCard key={post.id} props={post}/>
-            <PostCard key={post.id} props={post}/>
-            <PostCard key={post.id} props={post}/>
-            </>
-)
+        postData?.getFeed.map((post: FeedPost) => {
+          return <PostCard key={post.id} props={post} />;
           // return (
           //   <div key={post.id} className={HomeStyles.post}>
           //     <div>{post.author?.username}</div>
@@ -60,4 +52,4 @@ const HomePostFeed = () => {
   );
 };
 
-export default HomePostFeed
+export default HomePostFeed;

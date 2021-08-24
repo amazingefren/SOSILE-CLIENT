@@ -1,4 +1,6 @@
-import { Post } from "../../graphql/models/post.model";
+import { gql, useMutation } from "@apollo/client";
+import { useEffect, useState } from "react";
+import { FeedPost, Post } from "../../graphql/models/post.model";
 import Style from "./card.module.scss";
 
 function convertDate(date: string) {
@@ -13,24 +15,59 @@ function convertDate(date: string) {
     case seconds / 60 / 60 < 24:
       return Math.floor(seconds / 60 / 60) + "h";
     case seconds / 60 / 60 / 24 < 30:
-      return Math.floor(seconds / 60 / 60 / 24 ) + "d";
+      return Math.floor(seconds / 60 / 60 / 24) + "d";
   }
 }
 
-const PostCard = ({ props }: { props: Post }) => {
+const PostCard = ({ props }: { props: FeedPost }) => {
+  const [postLikes, setPostLikes] = useState(Number(props._count?.likes));
+  const [postLiked, setPostLiked] = useState(Boolean(props.liked) || false);
+  const [likePost] = useMutation(
+    gql`
+    mutation likepost {
+      postLikeToggle(postId: ${props.id})
+    }`,
+    {
+      onCompleted: ({ postLikeToggle }) => {
+        if (postLikeToggle) {
+          setPostLikes(postLikes + 1);
+          setPostLiked(true);
+        } else {
+          setPostLikes(postLikes - 1);
+          setPostLiked(false);
+        }
+      },
+    }
+  );
+
   return (
     <div className={Style.container}>
       <div className={Style.postTop}>
         <div className={Style.postUserImage}></div>
         <div className={Style.postUserNest}>
-          <div className={Style.postDisplayName}>{props.author?.displayName}</div>
+          <div className={Style.postDisplayName}>
+            {props.author?.displayName}
+          </div>
+          <div className={Style.postUserSeperator}>/</div>
           <div className={Style.postUsername}>{props.author?.username}</div>
-          <div className={Style.postFollowerCount}> {props.author?._count?.followers} FOLLOWERS </div>
+          <div className={Style.postUserSeperator}>/</div>
+          <div className={Style.postFollowerCount}>
+            {props.author?._count?.followers} FOLLOWERS{" "}
+          </div>
         </div>
         <div className={Style.postTime}>{convertDate(props.date)}</div>
       </div>
       <div className={Style.postMiddle}>{props.content}</div>
-      <div className={Style.postBottom}>{props._count.likes} likes</div>
+      <div
+        className={Style.postBottom}
+        onClick={async () => {
+          await likePost();
+        }}
+      >
+        <div className={postLiked ? Style.postLiked : Style.postNotLiked}>
+          {postLikes} Likes
+        </div>
+      </div>
     </div>
   );
 };

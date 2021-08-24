@@ -1,27 +1,41 @@
 @import "../../styles/theme.scss";
+
+$containerRadius: 22px;
+
 .container {
-  background-color: $themeBg;
+  background-color: $themeBgAlt;
+  border-radius: $containerRadius;
+  margin-bottom: 20px;
   color: $themeFg;
   display: grid;
-  border: 1px solid blue;
-  padding-left: 50px;
-  padding-right: 50px;
-  padding: 50px;
-  padding-right: 50px;
+  // padding-left: 50px;
+  // padding-right: 50px;
+  padding-top: 0;
+  // border:1px solid red;
+}
+
+.postTop, .postMiddle, .postBottom{
+  margin-top: 10px;
+  padding-left: 25px;
+  padding-right: 25px;
+
 }
 
 .postUserImage {
   width: 60px;
-  background-color: $themeBlue;
+  background-color: $themePurple;
   border-radius: 35%;
   margin: 5px 5px 5px 0;
   height: 60px;
 }
 
 .postBottom {
-  background-color: $themeBg;
+  background-color: $themeBgAlt;
+  border-bottom-right-radius: $containerRadius;
+  border-bottom-left-radius: $containerRadius;
   color: $themeFg;
   height: 50px;
+  border-top: 1px solid black;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -37,22 +51,38 @@
   flex-flow: row;
   flex-wrap: nowrap;
   justify-content: flex-start;
+  align-items: center;
   height: 70px;
   align-content: center;
+}
+
+.postUserNest {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  .postDisplayName, .postUsername, .postTime{
+    line-height: 70px;
+    height: 70px;
+  }
+  .postDisplayName{
+    font-size: 1.2em;
+  }
   .postUsername {
-    font-size: 1.5em;
+    font-size: 1em;
   }
   .postTime {
     font-size: 0.8em;
   }
 }
 
-.postUserNest {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
 .postFollowerCount {
   font-size: 0.7em;
+}
+
+.postLiked {
+  color: $themePurple;
+}
+.postNotLiked{
+  color: $themeFg;
 }

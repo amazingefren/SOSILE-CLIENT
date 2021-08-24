@@ -19,21 +19,20 @@ $navWidth: 50px;
 
 #container {
   display: grid;
-  // height: 100vh;
+  height: $topHeight;
   width: 100vw;
-  height: 100vh;
   position:fixed;
   // border: 2px solid black;
   // overflow: hidden;
-  grid-template-rows: $topHeight auto auto;
+  grid-template-rows: $topHeight auto;
   // position:fixed;
   // background-color:$themeBg;
   // color: $themeFg;
   grid-template-columns: $navWidth auto;
   grid-template-areas:
     "top top"
-    "nav free"
     "nav free";
+    // "nav free";
     max-width: 2000px;
     box-sizing:border-box !important;
     // border: 1px solid $themeRed;
@@ -46,13 +45,15 @@ $navWidth: 50px;
 }
 #top {
   position:relative;
-  background-color:$themeBgAlt;
+  background-color:$themeBg;
   // border: 1px solid red;
   grid-area: top;
 }
 
 #nav {
   // border: 1px solid red;
-  background-color:$themeBgAlt;
+  background-color:$themeBg;
   grid-area: nav;
+  position:absolute;
+  height: 100vh;
 }

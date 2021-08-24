@@ -48,3 +48,13 @@ export interface PostHistory {
 export interface CreatePostInput {
   content: string;
 }
+export interface FeedPost {
+  id: number;
+  author?: User;
+  content: string;
+  date: string;
+  updated: Date;
+  history?: PostHistory[];
+  liked?: Boolean;
+  _count?: PostCounts;
+}
