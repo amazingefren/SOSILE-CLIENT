@@ -3,26 +3,27 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import IndexStyle from '../styles/index/index.module.scss'
 import Login from '../components/index/Login'
-import { useQuery } from '@apollo/client'
-import { AuthCheck } from '../graphql/auth/auth.query'
-import router from 'next/dist/client/router'
+import { protect } from '../authentication/protected'
 
 const Index: NextPage = () => {
-  const [isAuth, setIsAuth ] = useState<null|boolean>(null)
-  useQuery(AuthCheck, {
-    onError: (e) => {
-      // @TODO HANDLE REROUTE IF API ERROR
-      console.log(e);
-      setIsAuth(false)
-    },
-    onCompleted: (data) => {
-      console.log(data)
-      if(data.AuthCheck === true){
-        // redirect without history stack
-        router.replace('/home')
-      }
-    },
-  });
+  // const [isAuth, setIsAuth ] = useState<null|boolean>(null)
+  // useQuery(AuthCheck, {
+  //   onError: (e) => {
+  //     // @TODO HANDLE REROUTE IF API ERROR
+  //     console.log(e);
+  //     setIsAuth(false)
+  //   },
+  //   onCompleted: (data) => {
+  //     console.log(data)
+  //     if(data.AuthCheck === true){
+  //       // redirect without history stack
+  //       router.replace('/home')
+  //     }
+  //   },
+  // });
+
+
+  const {isAuth} = protect({to:"/home", reverse: true})
 
   return (
     <div className={IndexStyle.container}>

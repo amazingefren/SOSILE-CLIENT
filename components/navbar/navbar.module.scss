@@ -1,9 +1,23 @@
+@import "../../styles/theme.scss";
 #root{
   height: 100%;
   display:flex;
   border-right: 1px solid black;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   padding-left: 20px;
   padding-right: 10px;
+  position: relative;
+}
+
+#center{
+}
+
+#end{
+  position: absolute;
+  bottom:0;
+  #logout{
+    color: $themeRed;
+  }
 }

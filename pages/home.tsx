@@ -10,6 +10,7 @@ const Home = () => {
     user: { fields: { username: true } },
   });
 
+
   return (
     <Layout title={user?.username + "@Home" || ""}>
       <div id={HomeStyles.container}>

@@ -2,6 +2,8 @@ import LoginStyle from "../../styles/index/login.module.scss";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { AuthCheck, AuthLogin } from "../../graphql/auth/auth.query";
 import { FormEvent, useEffect, useState } from "react";
+import { isAuthInVar } from "../../apollo.cache";
+import router from "next/dist/client/router";
 
 const Login = () => {
   const [
@@ -17,6 +19,8 @@ const Login = () => {
       window.localStorage.removeItem("auth-login-username");
       setPayload({ username: "", password: "" });
       window.localStorage.setItem("refresh_token", data.AuthLoginUser.token);
+      isAuthInVar(true)
+      router.replace("/home")
       // Redirect ? Store User ?
     },
     onError: (e) => {
@@ -24,14 +28,14 @@ const Login = () => {
     },
   });
 
-  useQuery(AuthCheck, {
-    onError: (e) => {
-      console.log(e);
-    },
-    onCompleted: (data) => {
-      console.log(data);
-    },
-  });
+  // useQuery(AuthCheck, {
+    // onError: (e) => {
+      // console.log(e);
+    // },
+    // onCompleted: (data) => {
+      // console.log(data);
+    // },
+  // });
 
   const [payload, setPayload] = useState({ username: "", password: "" });
 

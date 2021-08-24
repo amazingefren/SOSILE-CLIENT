@@ -4,6 +4,7 @@
   width: 100%;
   display:flex;
   flex-flow: row;
+  padding-right: 20px;
   justify-content: space-between;
 }
 #sosile,
@@ -35,7 +36,6 @@
   // width: 300px;
   // background-color: red;
   display:flex;
-  margin-right: 5px;
   justify-content: center;
   #searchBar{
     // height: 100%;

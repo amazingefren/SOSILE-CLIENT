@@ -1,51 +1,43 @@
 import { gql, useQuery } from "@apollo/client";
 import router from "next/dist/client/router";
 import React, { useEffect, useState } from "react";
-import { AuthCheck } from "../graphql/auth/auth.query";
-import { User, UserAuthIncludeOpts, UserRequestOpts } from "../graphql/models/user.model";
-import { USER_POST } from "../graphql/post/post.query";
-import { ME } from "../graphql/user/user.query";
+// import { AuthCheck } from "../graphql/auth/auth.query";
+// import { User, UserAuthIncludeOpts, UserRequestOpts } from "../graphql/models/user.model";
+// import { USER_POST } from "../graphql/post/post.query";
+// import { ME } from "../graphql/user/user.query";
+
+const IS_AUTH = gql`
+  query clientIsAuth {
+    clientIsAuth @client
+}
+`
 
 const protect = ({
   to = null,
-  user = null,
+  reverse = null
 }: {
   to: null | string;
-  user: null | {fields: UserRequestOpts};
+  reverse?: null | boolean;
 }) => {
+
+  const {data} = useQuery(IS_AUTH)
+
   const [isAuth, setIsAuth] = useState<null | boolean>(null);
-  const [User, setUser] = useState<null | User>(null);
-
-  if (user) {
-    useQuery(ME(user.fields), {
-      onError: () => {
-        setIsAuth(false);
-      },
-      onCompleted: (data) => {
-        setUser(data.whoAmI);
-        setIsAuth(true);
-      },
-    });
-  } else {
-    useQuery(AuthCheck, {
-      onError: () => {
-        setIsAuth(false);
-      },
-      onCompleted: () => {
-        setIsAuth(true);
-      },
-    });
-  }
-
-  useEffect(() => {
-    if (to) {
-      if (isAuth == false) {
-        router.push(to);
+  useEffect(()=>{
+    if(data.clientIsAuth){
+      setIsAuth(true)
+      if(to && reverse){
+        router.replace(to)  
+      }
+    }else{
+      setIsAuth(false)
+      if(to && !reverse){
+        router.replace(to)
       }
     }
-  }, [isAuth, to, User]);
-
-  return { isAuth, user: User };
+    console.log(data)
+  },[data])
+  return { isAuth };
 };
 
 export { protect };
