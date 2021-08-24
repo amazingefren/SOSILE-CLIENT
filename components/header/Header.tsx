@@ -1,5 +1,5 @@
 import HeaderStyle from "./header.module.scss";
-export default function () {
+const Header = () => {
   return (
     <header id={HeaderStyle.container}>
       <div id={HeaderStyle.sosile}>
@@ -15,3 +15,5 @@ export default function () {
     </header>
   );
 }
+
+export default Header
