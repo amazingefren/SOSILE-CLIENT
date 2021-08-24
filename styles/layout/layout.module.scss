@@ -1,6 +1,6 @@
 @import "../theme.scss";
 $topHeight: 75px;
-$navWidth: 50px;
+$navWidth: 80px;
 
 #root {
   background-color: $themeBg;
@@ -8,7 +8,9 @@ $navWidth: 50px;
   display: flex;
   justify-content: center;
   min-height: 100vh;
-  width: 100vw;
+  width: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
   main{
     display: flex;
     justify-content: center;
@@ -20,7 +22,7 @@ $navWidth: 50px;
 #container {
   display: grid;
   height: $topHeight;
-  width: 100vw;
+  width: 100%;
   position:fixed;
   // border: 2px solid black;
   // overflow: hidden;
@@ -39,13 +41,15 @@ $navWidth: 50px;
 }
 
 #child {
-  width: 100%;
+  width: 100% !important;
   margin-left: $navWidth;
   margin-top: $topHeight;
 }
 #top {
   position:relative;
   background-color:$themeBg;
+  padding-left: 20px;
+  paddinr-right: 20px;
   // border: 1px solid red;
   grid-area: top;
 }
@@ -55,5 +59,6 @@ $navWidth: 50px;
   background-color:$themeBg;
   grid-area: nav;
   position:absolute;
-  height: 100vh;
+  height: calc(100vh - #{$topHeight});
+  width: $navWidth;
 }

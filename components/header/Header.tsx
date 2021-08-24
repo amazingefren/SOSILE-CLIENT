@@ -7,13 +7,13 @@ const Header = () => {
         <div id={HeaderStyle.name}>SOSILE</div>
       </div>
       {/*@TODO GLOBAL STATE MANAGEMENT*/}
-      <div id={HeaderStyle.search}>
-          <div id={HeaderStyle.searchBar}>
-            <input id={HeaderStyle.searchBarInput} placeholder="search"/>
+      <div id={HeaderStyle.right}>
+        <div id={HeaderStyle.searchBar}>
+          <input id={HeaderStyle.searchBarInput} placeholder="search" />
         </div>
       </div>
     </header>
   );
-}
+};
 
-export default Header
+export default Header;

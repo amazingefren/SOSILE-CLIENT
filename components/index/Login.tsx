@@ -81,7 +81,7 @@ const Login = () => {
         <h1>Login</h1>
         {error && <span>{error.message}</span>}
         <br />
-        <label htmlFor="username">username</label>
+        {/*<label htmlFor="username">username</label>*/}
         <input
           name="username"
           placeholder="username"
@@ -91,7 +91,7 @@ const Login = () => {
           required
         />
         <br />
-        <label htmlFor="password">password</label>
+        {/*<label htmlFor="password">password</label>*/}
         <input
           name="password"
           placeholder="password"
