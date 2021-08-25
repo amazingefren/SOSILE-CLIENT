@@ -10,9 +10,9 @@ const Home = () => {
     to: "/",
     // user: { fields: { username: true } },
   });
-  const {user} = cachedUser()
+  const { user } = cachedUser();
   return (
-    <Layout title={user ? user.username + "@Home": "Loading"}>
+    <Layout title={user ? user.username + "@Home" : "Loading"}>
       <div id={HomeStyles.container}>
         <HomePostFeed />
       </div>

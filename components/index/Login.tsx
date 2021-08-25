@@ -19,8 +19,8 @@ const Login = () => {
       window.localStorage.removeItem("auth-login-username");
       setPayload({ username: "", password: "" });
       window.localStorage.setItem("refresh_token", data.AuthLoginUser.token);
-      isAuthInVar(true)
-      router.replace("/home")
+      isAuthInVar(true);
+      router.replace("/home");
       // Redirect ? Store User ?
     },
     onError: (e) => {
@@ -29,12 +29,12 @@ const Login = () => {
   });
 
   // useQuery(AuthCheck, {
-    // onError: (e) => {
-      // console.log(e);
-    // },
-    // onCompleted: (data) => {
-      // console.log(data);
-    // },
+  // onError: (e) => {
+  // console.log(e);
+  // },
+  // onCompleted: (data) => {
+  // console.log(data);
+  // },
   // });
 
   const [payload, setPayload] = useState({ username: "", password: "" });

@@ -8,8 +8,8 @@ const Layout = ({
   children,
   title,
 }: {
-  children: ReactElement<any, any>
-  title: string
+  children: ReactElement<any, any>;
+  title: string;
 }) => {
   return (
     <div id={LayoutStyle.root}>
@@ -18,13 +18,14 @@ const Layout = ({
         <meta name="description" content="sosile-client" />
       </Head>
       <main>
-        
+
+
 
 
 
         <div id={LayoutStyle.container}>
           <div id={LayoutStyle.top}>
-            <Header/>
+            <Header />
           </div>
           <div id={LayoutStyle.nav}>
             <Navbar />
