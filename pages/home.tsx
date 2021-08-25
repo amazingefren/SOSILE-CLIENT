@@ -1,14 +1,16 @@
 import React from "react";
-import { protect } from "../authentication/protected";
+import { protect } from "../hooks/protected";
 import HomePostFeed from "../components/home/Feed";
 import Layout from "../components/layout/Layout";
 import HomeStyles from "../styles/home/home.module.scss";
+import cachedUser from "../hooks/getUser";
 
 const Home = () => {
-  const { user } = protect({
+  protect({
     to: "/",
-    user: { fields: { username: true } },
+    // user: { fields: { username: true } },
   });
+  const {user} = cachedUser()
 
 
   return (

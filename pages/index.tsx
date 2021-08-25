@@ -3,7 +3,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import IndexStyle from '../styles/index/index.module.scss'
 import Login from '../components/index/Login'
-import { protect } from '../authentication/protected'
+import { protect } from '../hooks/protected'
 
 const Index: NextPage = () => {
   // const [isAuth, setIsAuth ] = useState<null|boolean>(null)

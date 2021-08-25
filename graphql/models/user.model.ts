@@ -1,7 +1,6 @@
 import { Post } from "./post.model";
 
-
-export interface UserCount{
+export interface UserCount {
   followers: number;
 }
 export interface User {
@@ -35,3 +34,8 @@ export class UserAuthIncludeOpts {
   profile?: boolean = false;
   replies?: boolean = false;
 }
+
+export type CachedUser = Exclude<
+  User,
+  "posts" | "likes" | "replies" | "following" | "followers"
+>;
