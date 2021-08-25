@@ -1,7 +1,7 @@
 import { gql, useLazyQuery, useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { isUserInVar } from "../apollo.cache";
-import { CachedUser } from "../graphql/models/user.model";
+import { CachedUser } from "../graphql/user/user.model";
 
 const GET_CACHED = gql`
   query clientUser {
@@ -25,7 +25,7 @@ const GET_CACHE_SAFE_USER = gql`
 `;
 
 const cachedUser = (): { user: CachedUser | null } => {
-  const [ user, setUser ] = useState<CachedUser | null>(null);
+  const [user, setUser] = useState<CachedUser | null>(null);
   const { data } = useQuery(GET_CACHED);
   const [getter, { data: userData }] = useLazyQuery(GET_CACHE_SAFE_USER);
 
@@ -39,7 +39,7 @@ const cachedUser = (): { user: CachedUser | null } => {
     if (userData) {
       console.log(userData.whoAmI);
       isUserInVar(userData.whoAmI as CachedUser);
-      setUser(userData.whoAmI as CachedUser)
+      setUser(userData.whoAmI as CachedUser);
     }
   }, [userData]);
 

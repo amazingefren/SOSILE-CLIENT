@@ -1,5 +1,5 @@
-import { gql, InMemoryCache, makeVar, useQuery } from "@apollo/client";
-import { CachedUser } from "./graphql/models/user.model";
+import { InMemoryCache, makeVar } from "@apollo/client";
+import { CachedUser } from "./graphql/user/user.model";
 
 const checkToken = (): boolean => {
   let tokenBool = false;

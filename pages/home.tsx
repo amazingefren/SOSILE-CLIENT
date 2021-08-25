@@ -11,10 +11,8 @@ const Home = () => {
     // user: { fields: { username: true } },
   });
   const {user} = cachedUser()
-
-
   return (
-    <Layout title={user?.username + "@Home" || ""}>
+    <Layout title={user ? user.username + "@Home": "Loading"}>
       <div id={HomeStyles.container}>
         <HomePostFeed />
       </div>

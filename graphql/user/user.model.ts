@@ -1,4 +1,4 @@
-import { Post } from "./post.model";
+import { Post } from "../post/post.model";
 
 export interface UserCount {
   followers: number;

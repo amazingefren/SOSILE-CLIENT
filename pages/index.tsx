@@ -6,22 +6,6 @@ import Login from '../components/index/Login'
 import { protect } from '../hooks/protected'
 
 const Index: NextPage = () => {
-  // const [isAuth, setIsAuth ] = useState<null|boolean>(null)
-  // useQuery(AuthCheck, {
-  //   onError: (e) => {
-  //     // @TODO HANDLE REROUTE IF API ERROR
-  //     console.log(e);
-  //     setIsAuth(false)
-  //   },
-  //   onCompleted: (data) => {
-  //     console.log(data)
-  //     if(data.AuthCheck === true){
-  //       // redirect without history stack
-  //       router.replace('/home')
-  //     }
-  //   },
-  // });
-
 
   const {isAuth} = protect({to:"/home", reverse: true})
 

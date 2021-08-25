@@ -1,10 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
 import router from "next/dist/client/router";
-import React, { useEffect, useState } from "react";
-// import { AuthCheck } from "../graphql/auth/auth.query";
-// import { User, UserAuthIncludeOpts, UserRequestOpts } from "../graphql/models/user.model";
-// import { USER_POST } from "../graphql/post/post.query";
-// import { ME } from "../graphql/user/user.query";
+import { useEffect, useState } from "react";
 
 const IS_AUTH = gql`
   query clientIsAuth {

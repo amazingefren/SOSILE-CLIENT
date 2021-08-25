@@ -3,7 +3,7 @@ import {
   User,
   UserAuthIncludeOpts,
   UserRequestOpts,
-} from "../models/user.model";
+} from "../user/user.model";
 
 const ME = (
   /* {
