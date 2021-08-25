@@ -1,9 +1,5 @@
 import { gql } from "@apollo/client";
-import {
-  User,
-  UserAuthIncludeOpts,
-  UserRequestOpts,
-} from "../user/user.model";
+import { User, UserAuthIncludeOpts, UserRequestOpts } from "../user/user.model";
 
 const ME = (
   /* {
@@ -29,7 +25,9 @@ const ME = (
       }
     }
   `;
-  return gql`${payload}`;
+  return gql`
+    ${payload}
+  `;
 };
 
 export { ME };

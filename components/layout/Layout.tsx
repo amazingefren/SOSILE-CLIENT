@@ -8,8 +8,8 @@ const Layout = ({
   children,
   title,
 }: {
-  children: ReactElement<any, any>;
-  title: string;
+  children: ReactElement<any, any>
+  title: string
 }) => {
   return (
     <div id={LayoutStyle.root}>

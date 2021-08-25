@@ -12,7 +12,7 @@ const checkToken = (): boolean => {
 };
 
 export const isAuthInVar = makeVar<boolean>(checkToken());
-export const isUserInVar = makeVar<CachedUser | null>(null)
+export const isUserInVar = makeVar<CachedUser | null>(null);
 
 export const cache = new InMemoryCache({
   typePolicies: {

@@ -4,9 +4,9 @@ import { PostCounts, PostFields, PostIncludeOpts } from "../models/post.model";
 export function USER_POST(fields: PostFields, opts: PostIncludeOpts) {
   let query = ``; */
 
-  // @TODO PostIncludeOpts
+// @TODO PostIncludeOpts
 
-  /* if (counts?.likes || counts?.replies) {
+/* if (counts?.likes || counts?.replies) {
     query = `
       query USER_POST{
         userPosts(
@@ -26,7 +26,7 @@ export function USER_POST(fields: PostFields, opts: PostIncludeOpts) {
     `;
   } */
 
-  /* console.log(`this is a test (${JSON.stringify(opts).replaceAll("\"", "")})`);
+/* console.log(`this is a test (${JSON.stringify(opts).replaceAll("\"", "")})`);
 
   return gql`
   query test{
