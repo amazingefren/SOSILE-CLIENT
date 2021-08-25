@@ -18,11 +18,6 @@ const Layout = ({
         <meta name="description" content="sosile-client" />
       </Head>
       <main>
-
-
-
-
-
         <div id={LayoutStyle.container}>
           <div id={LayoutStyle.top}>
             <Header />

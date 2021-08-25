@@ -14,11 +14,12 @@ $containerRadius: 22px;
   // border:1px solid red;
 }
 
-.postTop, .postMiddle, .postBottom{
+.postTop,
+.postMiddle,
+.postBottom {
   margin-top: 10px;
   padding-left: 25px;
   padding-right: 25px;
-
 }
 
 .postUserImage {
@@ -61,11 +62,13 @@ $containerRadius: 22px;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  .postDisplayName, .postUsername, .postTime{
+  .postDisplayName,
+  .postUsername,
+  .postTime {
     line-height: 70px;
     height: 70px;
   }
-  .postDisplayName{
+  .postDisplayName {
     font-size: 1.2em;
   }
   .postUsername {
@@ -83,6 +86,6 @@ $containerRadius: 22px;
 .postLiked {
   color: $themePurple;
 }
-.postNotLiked{
+.postNotLiked {
   color: $themeFg;
 }

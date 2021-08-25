@@ -2,7 +2,7 @@
 #container {
   height: 100%;
   width: 100%;
-  display:flex;
+  display: flex;
   flex-flow: row;
   padding-right: 20px;
   justify-content: space-between;
@@ -35,32 +35,30 @@
   float: right;
   // width: 300px;
   // background-color: red;
-  display:flex;
+  display: flex;
   justify-content: center;
-  #searchBar{
+  #searchBar {
     // height: 100%;
     // background-color: blue;
     border: 1px solid #303030;
-    border-radius:16px; 
+    border-radius: 16px;
     background-color: $themeBg;
     margin-top: 15px;
     margin-bottom: 15px;
-    display:flex;
-    opacity:0.8;
+    display: flex;
+    opacity: 0.8;
     justify-content: center;
     padding-left: 16px;
     padding-right: 16px;
-    #searchBarInput{
+    #searchBarInput {
       color: $themeFg;
       width: 200px;
       font-size: 0.9em;
     }
-
   }
-  #searchBar:focus-within{
+  #searchBar:focus-within {
     background-color: $themeBgAlt;
     opacity: 1;
     border: 1px solid #494949;
   }
-
 }

@@ -7,8 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "husky install",
-    "format": "prettier --write ./**/*.ts ./**/*.tsx"
+    "prepare": "husky install"
   },
   "dependencies": {
     "@apollo/client": "^3.4.8",
@@ -30,6 +29,7 @@
   "lint-staged": {
     "*.js": "eslint --cache --fix",
     "*.tsx": "prettier --write",
-    "*.ts": "prettier --write"
+    "*.ts": "prettier --write",
+    "*.scss": "prettier --write"
   }
 }

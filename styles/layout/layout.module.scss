@@ -11,7 +11,7 @@ $navWidth: 80px;
   width: 100%;
   padding-left: 20px;
   padding-right: 20px;
-  main{
+  main {
     display: flex;
     justify-content: center;
     width: 100%;
@@ -23,7 +23,7 @@ $navWidth: 80px;
   display: grid;
   height: $topHeight;
   width: 100%;
-  position:fixed;
+  position: fixed;
   // border: 2px solid black;
   // overflow: hidden;
   grid-template-rows: $topHeight auto;
@@ -34,10 +34,10 @@ $navWidth: 80px;
   grid-template-areas:
     "top top"
     "nav free";
-    // "nav free";
-    max-width: 2000px;
-    box-sizing:border-box !important;
-    // border: 1px solid $themeRed;
+  // "nav free";
+  max-width: 2000px;
+  box-sizing: border-box !important;
+  // border: 1px solid $themeRed;
 }
 
 #child {
@@ -46,8 +46,8 @@ $navWidth: 80px;
   margin-top: $topHeight;
 }
 #top {
-  position:relative;
-  background-color:$themeBg;
+  position: relative;
+  background-color: $themeBg;
   padding-left: 20px;
   paddinr-right: 20px;
   // border: 1px solid red;
@@ -56,9 +56,9 @@ $navWidth: 80px;
 
 #nav {
   // border: 1px solid red;
-  background-color:$themeBg;
+  background-color: $themeBg;
   grid-area: nav;
-  position:absolute;
+  position: absolute;
   height: calc(100vh - #{$topHeight});
   width: $navWidth;
 }

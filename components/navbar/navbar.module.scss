@@ -1,7 +1,7 @@
 @import "../../styles/theme.scss";
-#root{
+#root {
   height: 100%;
-  display:flex;
+  display: flex;
   border-right: 1px solid black;
   flex-direction: column;
   justify-content: center;
@@ -11,13 +11,13 @@
   position: relative;
 }
 
-#center{
+#center {
 }
 
-#end{
+#end {
   position: absolute;
-  bottom:0;
-  #logout{
+  bottom: 0;
+  #logout {
     color: $themeRed;
   }
 }

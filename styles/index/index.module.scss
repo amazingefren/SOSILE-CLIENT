@@ -1,27 +1,26 @@
 @import "../theme.scss";
-.container{
+.container {
   height: 100vh;
   width: 100%;
   background-color: $themeBg;
   color: $themeFg;
-  box-sizing:border-box !important;
+  box-sizing: border-box !important;
   // overflow: hidden;
 }
-.main{
-  display:flex;
+.main {
+  display: flex;
   flex-flow: column;
   width: 100%;
   height: 100%;
 }
-.mainLeft{
+.mainLeft {
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-end;
-
 }
-.mainRight{
+.mainRight {
   width: 100%;
   height: 100%;
   display: flex;
