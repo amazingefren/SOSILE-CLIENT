@@ -45,6 +45,7 @@ $navWidth: 80px;
   margin-left: $navWidth;
   margin-top: $topHeight;
 }
+
 #top {
   position: relative;
   background-color: $themeBg;
@@ -60,5 +61,5 @@ $navWidth: 80px;
   grid-area: nav;
   position: absolute;
   height: calc(100vh - #{$topHeight});
-  width: $navWidth;
+  // width: $navWidth;
 }

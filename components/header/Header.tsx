@@ -1,4 +1,5 @@
 import HeaderStyle from "./header.module.scss";
+
 const Header = () => {
   return (
     <header id={HeaderStyle.container}>

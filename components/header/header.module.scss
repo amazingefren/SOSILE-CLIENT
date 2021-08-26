@@ -23,11 +23,13 @@
     height: 50px;
     width: 50px;
     border-radius: 30%;
-    background-color: $themeFg;
+    background-color: $themeGreen;
   }
 
   #name {
     margin-left: 10px;
+    color: $themeFg;
+    font-weight: bold;
   }
 }
 
@@ -40,7 +42,7 @@
   #searchBar {
     // height: 100%;
     // background-color: blue;
-    border: 1px solid #303030;
+    border: 1px solid $themeBgShade;
     border-radius: 16px;
     background-color: $themeBg;
     margin-top: 15px;
@@ -59,6 +61,6 @@
   #searchBar:focus-within {
     background-color: $themeBgAlt;
     opacity: 1;
-    border: 1px solid #494949;
+    border: 1px solid $themeBgSelection;
   }
 }

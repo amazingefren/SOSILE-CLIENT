@@ -2,16 +2,15 @@
 #root {
   height: 100%;
   display: flex;
-  border-right: 1px solid black;
+  // border-right: 1px solid black;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-left: 20px;
-  padding-right: 10px;
   position: relative;
 }
 
 #center {
+  // width: 100%;
 }
 
 #end {
@@ -19,5 +18,41 @@
   bottom: 0;
   #logout {
     color: $themeRed;
+    cursor: pointer;
+    padding-bottom: 10px;
   }
+}
+
+.navButton {
+  // background-color: #090909;
+  // border: 2px solid #181818;
+  transition: 0.2s;
+  border-left: 0px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  // border-top-right-radius: 12px;
+  // border-bottom-right-radius: 12px;
+  border-radius: 20px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-left: 10px;
+  color: $themeFgInactive;
+  padding-right: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.navButtonActive {
+  // background-color: $themeBg;
+  // filter: brightness(200%);
+  color: $themeFg;
+  font-weight: bold;
+}
+
+.navButton:hover {
+  // background-color: $themeBg;
+  filter: brightness(200%);
+  color: $themeFg;
+  cursor: pointer;
 }
