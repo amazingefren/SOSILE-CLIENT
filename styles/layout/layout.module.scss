@@ -1,6 +1,6 @@
 @import "../theme.scss";
 $topHeight: 75px;
-$navWidth: 80px;
+$navWidth: 121px;
 
 #root {
   background-color: $themeBg;
@@ -61,5 +61,5 @@ $navWidth: 80px;
   grid-area: nav;
   position: absolute;
   height: calc(100vh - #{$topHeight});
-  // width: $navWidth;
+  width: $navWidth;
 }
