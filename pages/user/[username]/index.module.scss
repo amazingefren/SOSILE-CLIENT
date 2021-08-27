@@ -2,6 +2,7 @@
 #root {
   min-height: calc(100% - 20px);
   border-radius: 18px;
+  // height: auto;
 }
 
 #header {
@@ -38,7 +39,7 @@
       "Img Bio";
     width: 100%;
     #headerUserImg {
-      border-radius: 12px;
+      border-radius: 18px;
       width: 50px;
       height: 50px;
       background-color: $themeRed;

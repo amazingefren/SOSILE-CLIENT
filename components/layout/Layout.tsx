@@ -25,8 +25,8 @@ const Layout = ({
           <div id={LayoutStyle.nav}>
             <Navbar />
           </div>
+          <div id={LayoutStyle.child}>{children}</div>
         </div>
-        <div id={LayoutStyle.child}>{children}</div>
       </main>
     </div>
   );

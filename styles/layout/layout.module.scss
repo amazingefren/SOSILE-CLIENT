@@ -7,10 +7,10 @@ $navWidth: 121px;
   color: $themeFg;
   display: flex;
   justify-content: center;
-  min-height: 100vh;
+  // height: 100vh;
   width: 100%;
-  padding-left: 20px;
-  padding-right: 20px;
+  // padding-left: 20px;
+  // padding-right: 20px;
   main {
     display: flex;
     justify-content: center;
@@ -20,46 +20,37 @@ $navWidth: 121px;
 }
 
 #container {
-  display: grid;
-  height: $topHeight;
-  width: 100%;
-  position: fixed;
-  // border: 2px solid black;
-  // overflow: hidden;
-  grid-template-rows: $topHeight auto;
-  // position:fixed;
-  // background-color:$themeBg;
-  // color: $themeFg;
-  grid-template-columns: $navWidth auto;
-  grid-template-areas:
-    "top top"
-    "nav free";
-  // "nav free";
+  width: 100vw;
   max-width: 2000px;
   box-sizing: border-box !important;
-  // border: 1px solid $themeRed;
 }
 
 #child {
-  width: 100% !important;
+  // width: 100% !important;
   margin-left: $navWidth;
   margin-top: $topHeight;
+  z-index: 1;
+  padding: 20px;
+  // position: sticky;
 }
 
 #top {
-  position: relative;
-  background-color: $themeBg;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 3;
+  height: 75px;
   padding-left: 20px;
-  paddinr-right: 20px;
-  // border: 1px solid red;
-  grid-area: top;
+  background-color: $themeBg;
 }
 
 #nav {
-  // border: 1px solid red;
-  background-color: $themeBg;
-  grid-area: nav;
-  position: absolute;
-  height: calc(100vh - #{$topHeight});
+  // margin-top: -1px;
+  // position: absolute;
+  position: fixed;
   width: $navWidth;
+  top: 0;
+  bottom: 0;
+  left: 0;
 }

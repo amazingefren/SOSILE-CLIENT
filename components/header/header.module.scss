@@ -22,7 +22,7 @@
     content: "";
     height: 50px;
     width: 50px;
-    border-radius: 30%;
+    border-radius: 18px;
     background-color: $themeGreen;
   }
 
@@ -43,14 +43,14 @@
     // height: 100%;
     // background-color: blue;
     border: 1px solid $themeBgShade;
-    border-radius: 16px;
-    border-top-right-radius: 16px;
-    border-top-left-radius: 16px;
+    border-radius: 18px;
+    border-top-right-radius: 18px;
+    border-top-left-radius: 18px;
     background-color: $themeBg;
     margin-top: 15px;
     margin-bottom: 15px;
     display: flex;
-    opacity: 0.8;
+    opacity: 0.9;
     justify-content: center;
     padding-left: 16px;
     padding-right: 16px;
@@ -67,8 +67,8 @@
       position: absolute;
       background-color: $themeBgAlt;
       min-height: 50px;
-      border-bottom-left-radius: 20px;
-      border-bottom-right-radius: 20px;
+      border-bottom-left-radius: 18px;
+      border-bottom-right-radius: 18px;
       width: 332px;
       top: 100%;
       // transition: 0.3s;
@@ -94,12 +94,6 @@
       border: 1px solid $themeBgShade;
     }
   }
-  // #searchBar:focus-within {
-  //   width: 300px;
-  //   background-color: $themeBgAlt;
-  //   opacity: 1;
-  //   border: 1px solid $themeBgSelection;
-  // }
 
   @keyframes searchBarFade {
     from {

@@ -1,6 +1,6 @@
 @import "../../styles/theme.scss";
 
-$containerRadius: 22px;
+$containerRadius: 18px;
 
 .container {
   background-color: $themeBgAlt;
@@ -25,7 +25,7 @@ $containerRadius: 22px;
 .postUserImage {
   width: 60px;
   background-color: $themeBlue;
-  border-radius: 35%;
+  border-radius: 18px;
   margin: 5px 5px 5px 0;
   height: 60px;
 }
