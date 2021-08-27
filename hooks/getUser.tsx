@@ -29,7 +29,6 @@ const cachedUser = (): { user: CachedUser | null } => {
   useQuery(GET_CACHED, {
     onCompleted: (d) => {
       if (d.clientUser) {
-        console.log("GOT USER FROM CACHE");
         setUser(d.clientUser);
       } else {
         getter();
@@ -42,7 +41,6 @@ const cachedUser = (): { user: CachedUser | null } => {
 
   const [getter] = useLazyQuery(GET_CACHE_SAFE_USER, {
     onCompleted: (data) => {
-      console.log("GETTING USER FROM NON CACHE");
       setUser(data.whoAmI as CachedUser);
       isUserInVar(data.whoAmI as CachedUser);
     },
