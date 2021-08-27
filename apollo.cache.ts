@@ -23,6 +23,11 @@ export const cache = new InMemoryCache({
             return isAuthInVar();
           },
         },
+        clientUser: {
+          read() {
+            return isUserInVar();
+          },
+        },
       },
     },
   },

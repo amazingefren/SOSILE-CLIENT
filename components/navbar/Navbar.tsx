@@ -2,6 +2,7 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import router, { useRouter } from "next/dist/client/router";
 import { useEffect, useState } from "react";
 import { isAuthInVar } from "../../apollo.cache";
+import cachedUser from "../../hooks/getUser";
 import NavbarStyle from "./navbar.module.scss";
 
 const LOGOUT = gql`
@@ -28,14 +29,14 @@ const NavbarButton = ({ children, to }: { children: string; to: string }) => {
   const [active, setActive] = useState<boolean>(false);
   const activeClass = NavbarStyle.navButton + " " + NavbarStyle.navButtonActive;
   useEffect(() => {
-    if (to === route) {
+    if (to.split("/")[1] === route.split("/")[1]) {
       setActive(true);
     } else {
       setActive(false);
     }
   }, [active]);
   const handleRoute = () => {
-    // router.replace(to)
+    router.push(to);
   };
   return (
     <div
@@ -48,6 +49,7 @@ const NavbarButton = ({ children, to }: { children: string; to: string }) => {
 };
 
 const Navbar = () => {
+  const { user: me } = cachedUser();
   const [logOff] = useMutation(LOGOUT, {
     onCompleted: (data) => {
       handleLogOff(data);
@@ -62,8 +64,8 @@ const Navbar = () => {
     <div id={NavbarStyle.root}>
       <div id={NavbarStyle.center}>
         <NavbarButton to="/home">Home</NavbarButton>
-        <NavbarButton to="/user">Profile</NavbarButton>
-        <NavbarButton to="/tech">Technology</NavbarButton>
+        <NavbarButton to={"/user/" + me?.username}>Profile</NavbarButton>
+        <NavbarButton to="">Technology</NavbarButton>
       </div>
       <div id={NavbarStyle.end}>
         <div

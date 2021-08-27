@@ -26,22 +26,27 @@ const GET_CACHE_SAFE_USER = gql`
 
 const cachedUser = (): { user: CachedUser | null } => {
   const [user, setUser] = useState<CachedUser | null>(null);
-  const { data } = useQuery(GET_CACHED);
-  const [getter, { data: userData }] = useLazyQuery(GET_CACHE_SAFE_USER);
+  useQuery(GET_CACHED, {
+    onCompleted: (d) => {
+      if (d.clientUser) {
+        console.log("GOT USER FROM CACHE");
+        setUser(d.clientUser);
+      } else {
+        getter();
+      }
+    },
+    onError: () => {
+      console.log("HELLO?");
+    },
+  });
 
-  useEffect(() => {
-    if (!data) {
-      getter();
-    }
-  }, [data]);
-
-  useEffect(() => {
-    if (userData) {
-      console.log(userData.whoAmI);
-      isUserInVar(userData.whoAmI as CachedUser);
-      setUser(userData.whoAmI as CachedUser);
-    }
-  }, [userData]);
+  const [getter] = useLazyQuery(GET_CACHE_SAFE_USER, {
+    onCompleted: (data) => {
+      console.log("GETTING USER FROM NON CACHE");
+      setUser(data.whoAmI as CachedUser);
+      isUserInVar(data.whoAmI as CachedUser);
+    },
+  });
 
   return { user };
 };

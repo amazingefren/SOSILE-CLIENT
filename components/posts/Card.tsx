@@ -1,4 +1,5 @@
 import { gql, useMutation } from "@apollo/client";
+import router from "next/router";
 import { useEffect, useState } from "react";
 import { FeedPost, Post } from "../../graphql/models/post.model";
 import Style from "./card.module.scss";
@@ -40,10 +41,17 @@ const PostCard = ({ props }: { props: FeedPost }) => {
     }
   );
 
+  const handleUserRoute = () => {
+    const to = "/user/" + props.author.username;
+    if (router.route != to) {
+      router.push("/user/" + props.author.username);
+    }
+  };
+
   return (
     <div className={Style.container}>
       <div className={Style.postTop}>
-        <div className={Style.postUserImage}></div>
+        <div className={Style.postUserImage} onClick={handleUserRoute}></div>
         <div className={Style.postUserNest}>
           <div className={Style.postDisplayName}>
             {props.author?.displayName}

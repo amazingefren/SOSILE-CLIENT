@@ -36,21 +36,20 @@ const Header = () => {
   const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.persist();
     setTyping(true);
-    setSearchActive(true);
     setSearchInput(e.target.value);
   };
 
-  useEffect(() => {
-    window.addEventListener("click", (e: any) => {
-      if (document) {
-        if (document.getElementById("searchBarId")?.contains(e.target)) {
-          setSearchActive(true);
-        } else {
-          setSearchActive(false);
-        }
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   window.addEventListener("click", (e: any) => {
+  //     if (document) {
+  //       if (document.getElementById("searchBarId")?.contains(e.target)) {
+  //         setSearchActive(true);
+  //       } else {
+  //         setSearchActive(false);
+  //       }
+  //     }
+  //   });
+  // });
 
   useEffect(() => {
     let timer = setTimeout(() => setTyping(false), 350);
@@ -59,12 +58,7 @@ const Header = () => {
         findUser({ variables: { username: searchInput } });
       }
     }
-    // if (searchInput == "") {
-    //   setSearchActive(false);
-    // }
-    return () => {
-      clearTimeout(timer);
-    };
+    return () => clearTimeout(timer);
   }, [searchInput, typing]);
   return (
     <header id={HeaderStyle.container}>
@@ -87,6 +81,8 @@ const Header = () => {
             placeholder="search"
             value={searchInput}
             onChange={handleSearchInput}
+            onFocus={() => setSearchActive(true)}
+            onBlur={() => setSearchActive(false)}
           />
           {searchActive && (
             <div id={HeaderStyle.searchBarResult}>

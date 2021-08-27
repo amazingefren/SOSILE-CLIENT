@@ -1,4 +1,4 @@
-import { gql, useLazyQuery, useQuery } from "@apollo/client";
+import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 // import Link from 'next/link'
@@ -47,13 +47,19 @@ const GET_USER_POST_QUERY = gql`
   }
 `;
 
+const FOLLOW_USER_MUTATION = gql`
+  mutation followUser($id: Float!) {
+    userFollow(user: $id)
+  }
+`;
+
 const UserProfile = () => {
   const router = useRouter();
   const { username } = router.query;
   protect({
     to: "/",
   });
-  // const { user: me } = cachedUser() as any;
+  const { user: me } = cachedUser() as any;
   const [user, setUser] = useState<User | null>(null);
   const [posts, setPosts] = useState<FeedPost[] | null>(null);
 
@@ -64,7 +70,8 @@ const UserProfile = () => {
     },
   });
 
-  const [callUser] = useLazyQuery(GET_USER_QUERY, {
+  useQuery(GET_USER_QUERY, {
+    variables: { username: username },
     onCompleted: (data) => {
       setUser(data.findUserByUsername);
       callPosts({ variables: { id: Number(data.findUserByUsername.id) } });
@@ -72,19 +79,27 @@ const UserProfile = () => {
     },
   });
 
-  useEffect(() => {
-    if (username && !user) {
-      callUser({
-        variables: { username: username },
-      });
-    }
-  }, [username]);
+  const [followUser] = useMutation(FOLLOW_USER_MUTATION);
+
+  // useEffect(() => {
+  //   if (username && !user) {
+  //     callUser({
+  //       variables: { username: username },
+  //     });
+  //   }
+  //   return;
+  // }, []);
 
   useEffect(() => {
     posts?.map((post) => {
       console.log(post);
     });
   }, [posts]);
+
+  const handleFollow = () => {
+    console.log("following");
+    followUser({ variables: { id: user!.id } });
+  };
 
   return (
     <Layout title={user ? user.username + "@" + username : ""}>
@@ -104,6 +119,11 @@ const UserProfile = () => {
               <div id={ProfileStyle.headerUserBio}>
                 {user.profile!.biography}
               </div>
+              {me?.id != user?.id && (
+                <div id={ProfileStyle.headerUserButton} onClick={handleFollow}>
+                  <div id={ProfileStyle.headerUserButtonFollow}>Follow</div>
+                </div>
+              )}
             </div>
           </div>
         )}

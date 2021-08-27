@@ -40,13 +40,6 @@ const HomePostFeed = () => {
       {postData?.getFeed &&
         postData?.getFeed.map((post: FeedPost) => {
           return <PostCard key={post.id} props={post} />;
-          // return (
-          //   <div key={post.id} className={HomeStyles.post}>
-          //     <div>{post.author?.username}</div>
-          //     <div>{post.content}</div>
-          //     <div>{post._count?.likes}</div>
-          //   </div>
-          // );
         })}
     </div>
   );

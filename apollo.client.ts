@@ -11,6 +11,7 @@ const REFRESH_AUTH = gql`
 export const typeDefs = gql`
   extend type Query {
     clientIsAuth: Boolean!
+    clientUser: CachedUser!
   }
 `;
 

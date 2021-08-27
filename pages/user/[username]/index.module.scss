@@ -26,6 +26,7 @@
     z-index: 1;
   }
   #headerUser {
+    position: relative;
     padding: 20px;
     border-bottom-right-radius: 18px;
     border-bottom-left-radius: 18px;
@@ -33,15 +34,15 @@
     background-color: rgba(0, 0, 0, 0.6);
     display: grid;
     grid-template-rows: auto auto;
-    grid-template-columns: 50px auto;
+    grid-template-columns: 70px auto;
     grid-template-areas:
       "Img User"
       "Img Bio";
     width: 100%;
     #headerUserImg {
       border-radius: 18px;
-      width: 50px;
-      height: 50px;
+      width: 60px;
+      height: 60px;
       background-color: $themeRed;
       grid-area: Img;
     }
@@ -49,7 +50,6 @@
       grid-area: User;
       display: flex;
       align-items: flex-start;
-      padding-left: 10px;
       font-size: 1.3em;
       #headerUserSeperator {
         color: $themeBgSelection;
@@ -63,8 +63,27 @@
         font-weight: bold;
       }
     }
+    #headerUserButton {
+      position: absolute;
+      top: 20px;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 18px;
+      background-color: rgba($themeRed, 1);
+      padding-left: 20px;
+      padding-right: 20px;
+      #headerUserButtonFollow {
+        font-weight: bolder;
+        // background-color: black;
+        // height: 100%;
+        // padding-left: 20px;
+        // padding-right: 20px;
+      }
+    }
     #headerUserBio {
-      padding-left: 10px;
     }
   }
 }
