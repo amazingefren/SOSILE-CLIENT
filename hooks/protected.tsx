@@ -30,7 +30,6 @@ const protect = ({
         router.replace(to);
       }
     }
-    console.log(data);
   }, [data]);
   return { isAuth };
 };

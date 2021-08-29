@@ -14,6 +14,7 @@ export interface User {
   replies?: Post[];
   following?: User[];
   followers?: User[];
+  followed?: Boolean;
   _count?: UserCount;
 }
 export interface UserProfile {
