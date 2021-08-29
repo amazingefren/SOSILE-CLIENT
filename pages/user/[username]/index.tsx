@@ -1,4 +1,4 @@
-import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
+import { gql, useLazyQuery, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 // import Link from 'next/link'
@@ -27,6 +27,7 @@ const GET_USER_QUERY = gql`
         followers
         following
       }
+      followed
     }
   }
 `;
@@ -53,52 +54,93 @@ const FOLLOW_USER_MUTATION = gql`
   }
 `;
 
+const UNFOLLOW_USER_MUTATION = gql`
+  mutation unfollowUser($id: Float!) {
+    userUnfollow(user: $id)
+  }
+`;
+
 const UserProfile = () => {
   const router = useRouter();
-  const { username } = router.query;
+  let { username } = router.query;
   protect({
     to: "/",
   });
   const { user: me } = cachedUser() as any;
   const [user, setUser] = useState<User | null>(null);
   const [posts, setPosts] = useState<FeedPost[] | null>(null);
+  const [isMe, setIsMe] = useState<boolean>(true);
 
-  const [callPosts] = useLazyQuery(GET_USER_POST_QUERY, {
+  const [callPosts, { data: postData }] = useLazyQuery(GET_USER_POST_QUERY, {
     onCompleted: (data) => {
       // console.log(data)
       setPosts(data.findPostByUserId);
     },
   });
 
-  useQuery(GET_USER_QUERY, {
-    variables: { username: username },
+  const [getUser, { data: userData }] = useLazyQuery(GET_USER_QUERY, {
+    variables: { username },
     onCompleted: (data) => {
       setUser(data.findUserByUsername);
       callPosts({ variables: { id: Number(data.findUserByUsername.id) } });
-      // console.log(user)
+      console.log("HELLO");
     },
   });
 
-  const [followUser] = useMutation(FOLLOW_USER_MUTATION);
-
-  // useEffect(() => {
-  //   if (username && !user) {
-  //     callUser({
-  //       variables: { username: username },
-  //     });
-  //   }
-  //   return;
-  // }, []);
+  useEffect(() => {
+    if (username && !userData) {
+      getUser();
+    }
+    if (userData?.findUserByUsername) {
+      setUser(userData.findUserByUsername);
+      !postData &&
+        callPosts({
+          variables: { id: Number(userData.findUserByUsername.id) },
+        });
+      postData && setPosts(postData.findPostByUserId);
+    }
+  }, [username, userData]);
 
   useEffect(() => {
-    posts?.map((post) => {
-      console.log(post);
-    });
-  }, [posts]);
+    if (me && user) {
+      if (me.username === user?.username) {
+        setIsMe(true);
+      } else {
+        setIsMe(false);
+      }
+    }
+  }, [user, me]);
+
+  const [followUser] = useMutation(FOLLOW_USER_MUTATION, {
+    onCompleted: (data) => {
+      if (data.userFollow) {
+        setUser({ ...user!, followed: true });
+      }
+    },
+  });
+
+  const [unfollowUser] = useMutation(UNFOLLOW_USER_MUTATION, {
+    onCompleted: (data) => {
+      if (data.userUnfollow) {
+        setUser({ ...user!, followed: false });
+      }
+    },
+  });
 
   const handleFollow = () => {
-    console.log("following");
-    followUser({ variables: { id: user!.id } });
+    if (user) {
+      followUser({
+        variables: { id: user!.id },
+        onCompleted: () => {
+          setUser({ ...user!, followed: true });
+        },
+      });
+    }
+  };
+  const handleUnfollow = () => {
+    if (user) {
+      unfollowUser({ variables: { id: user!.id } });
+    }
   };
 
   return (
@@ -119,10 +161,24 @@ const UserProfile = () => {
               <div id={ProfileStyle.headerUserBio}>
                 {user.profile!.biography}
               </div>
-              {me?.id != user?.id && (
-                <div id={ProfileStyle.headerUserButton} onClick={handleFollow}>
-                  <div id={ProfileStyle.headerUserButtonFollow}>Follow</div>
-                </div>
+              {!isMe ? (
+                user.followed ? (
+                  <div
+                    id={ProfileStyle.headerUserButton}
+                    onClick={handleUnfollow}
+                  >
+                    <div id={ProfileStyle.headerUserButtonFollow}>Unfollow</div>
+                  </div>
+                ) : (
+                  <div
+                    id={ProfileStyle.headerUserButton}
+                    onClick={handleFollow}
+                  >
+                    <div id={ProfileStyle.headerUserButtonFollow}>Follow</div>
+                  </div>
+                )
+              ) : (
+                <></>
               )}
             </div>
           </div>
