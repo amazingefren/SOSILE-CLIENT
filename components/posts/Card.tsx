@@ -62,7 +62,7 @@ const PostCard = ({ props }: { props: FeedPost }) => {
             <>
               <div className={Style.postUserSeperator}>‧</div>
               <div className={Style.postFollowerCount}>
-                {props.author?._count?.followers} FOLLOWERS{" "}
+                {props.author?._count?.followers} followers{" "}
               </div>
             </>
           )}
@@ -71,14 +71,21 @@ const PostCard = ({ props }: { props: FeedPost }) => {
         </div>
       </div>
       <div className={Style.postMiddle}>{props.content}</div>
-      <div
-        className={Style.postBottom}
-        onClick={async () => {
-          await likePost();
-        }}
-      >
-        <div className={postLiked ? Style.postLiked : Style.postNotLiked}>
-          {postLikes} Likes
+      <div className={Style.postBottom}>
+        <div className={Style.postBottomComments}>
+          <span>{props._count.comments} comments</span>
+        </div>
+        <div
+          className={
+            postLiked
+              ? Style.postBottomLikes + " " + Style.postLiked
+              : Style.postBottomLikes
+          }
+          onClick={async () => {
+            await likePost();
+          }}
+        >
+          <span>{postLikes == 1 ? "1 like" : postLikes + " likes"}</span>
         </div>
       </div>
     </div>

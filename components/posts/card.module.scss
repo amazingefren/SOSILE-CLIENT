@@ -48,6 +48,26 @@ $containerRadius: 18px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  .postBottomComments {
+    color: $themeFgInactive;
+    cursor: pointer;
+    user-select: none;
+  }
+  .postBottomComments,
+  .postBottomLikes {
+    color: $themeFgInactive;
+    height: 100%;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .postLiked {
+    color: red;
+  }
 }
 
 .postMiddle {
@@ -79,6 +99,9 @@ $containerRadius: 18px;
   .postDisplayName {
     font-size: 1.2em;
   }
+  .postFollowerCount {
+    color: $themeFgInactive;
+  }
   .postUsername {
     color: $themeFgInactive;
   }
@@ -91,19 +114,4 @@ $containerRadius: 18px;
     font-size: 0.8em;
     color: $themeFgInactive;
   }
-}
-
-.postFollowerCount {
-  font-size: 0.7em;
-}
-
-.postLiked {
-  color: $themeBlue;
-  cursor: pointer;
-  user-select: none;
-}
-.postNotLiked {
-  color: $themeFgInactive;
-  cursor: pointer;
-  user-select: none;
 }
