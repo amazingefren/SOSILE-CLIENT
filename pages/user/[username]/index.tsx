@@ -61,35 +61,30 @@ const UNFOLLOW_USER_MUTATION = gql`
 `;
 
 const UserProfile = () => {
-  let { username } = useRouter().query;
   protect({
     to: "/",
   });
+  let { username } = useRouter().query;
   const { user: me } = cachedUser() as any;
-  const [user, setUser] = useState<User | null>(null);
-  const [posts, setPosts] = useState<FeedPost[] | null>(null);
   const [isMe, setIsMe] = useState<boolean>(true);
 
-  useQuery(GET_USER_POST_QUERY, {
-    variables: { username },
-    skip: !username,
-    onCompleted: (data) => {
-      setPosts(data.findPostByUser);
-    },
-  });
+  const { data: { findPostByUser: posts } = {}, fetchMore: postsRefresh } =
+    useQuery(GET_USER_POST_QUERY, {
+      variables: { username },
+      skip: !username,
+    });
 
-  useQuery(GET_USER_QUERY, {
-    variables: { username },
-    skip: !username,
-    onCompleted: (data) => {
-      setUser(data.findUserByUsername);
-    },
-  });
+  const { data: { findUserByUsername: user } = {}, fetchMore: userRefresh } =
+    useQuery(GET_USER_QUERY, {
+      variables: { username },
+      skip: !username,
+    });
 
   const [followUser] = useMutation(FOLLOW_USER_MUTATION, {
     onCompleted: (data) => {
       if (data.userFollow) {
-        setUser({ ...user!, followed: true });
+        userRefresh({ variables: { username } });
+        postsRefresh({ variables: { username } });
       }
     },
   });
@@ -97,19 +92,15 @@ const UserProfile = () => {
   const [unfollowUser] = useMutation(UNFOLLOW_USER_MUTATION, {
     onCompleted: (data) => {
       if (data.userUnfollow) {
-        setUser({ ...user!, followed: false });
+        userRefresh({ variables: { username } });
+        postsRefresh({ variables: { username } });
       }
     },
   });
 
   const handleFollow = () => {
     if (user) {
-      followUser({
-        variables: { id: user!.id },
-        onCompleted: () => {
-          setUser({ ...user!, followed: true });
-        },
-      });
+      followUser({ variables: { id: user!.id } });
     }
   };
   const handleUnfollow = () => {
@@ -146,8 +137,8 @@ const UserProfile = () => {
               <div id={ProfileStyle.headerUserBio}>
                 {user.profile!.biography}
               </div>
-              {!isMe ? (
-                user.followed ? (
+              {!isMe &&
+                (user.followed ? (
                   <div
                     id={ProfileStyle.headerUserButton}
                     onClick={handleUnfollow}
@@ -161,10 +152,7 @@ const UserProfile = () => {
                   >
                     <div id={ProfileStyle.headerUserButtonFollow}>Follow</div>
                   </div>
-                )
-              ) : (
-                <></>
-              )}
+                ))}
             </div>
           </div>
         )}
