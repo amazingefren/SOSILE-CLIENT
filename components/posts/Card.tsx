@@ -56,18 +56,19 @@ const PostCard = ({ props }: { props: FeedPost }) => {
           <div className={Style.postDisplayName}>
             {props.author?.displayName}
           </div>
-          <div className={Style.postUserSeperator}>/</div>
+          <div className={Style.postUserSeperator}>‧</div>
           <div className={Style.postUsername}>{props.author?.username}</div>
           {props.author?._count?.followers && (
             <>
-              <div className={Style.postUserSeperator}>/</div>
+              <div className={Style.postUserSeperator}>‧</div>
               <div className={Style.postFollowerCount}>
                 {props.author?._count?.followers} FOLLOWERS{" "}
               </div>
             </>
           )}
+          <div className={Style.postUserSeperator}>‧</div>
+          <div className={Style.postTime}>{convertDate(props.date)}</div>
         </div>
-        <div className={Style.postTime}>{convertDate(props.date)}</div>
       </div>
       <div className={Style.postMiddle}>{props.content}</div>
       <div

@@ -16,7 +16,8 @@
   position: relative;
   justify-content: center;
   align-items: flex-end;
-  box-shadow: 0px 8px 12px -6px $themeFg;
+  // box-shadow: 0px 8px 12px -6px $themeFg;
+  // box-shadow: 0px 0px 4px 0px $themeFg;
   #headerImg {
     border-radius: 18px;
     position: absolute;
@@ -91,12 +92,13 @@
 #selection {
   display: grid;
   grid-template-columns: calc(100% / 3) calc(100% / 3) calc(100% / 3);
-  margin-top: -18px;
-  padding-top: 18px;
-  background-color: #494949;
-  color: $themeBgAlt;
-  border-bottom-right-radius: 18px;
-  border-bottom-left-radius: 18px;
+  margin-top: 18px;
+  height: 50px;
+  background-color: $themeBgShade;
+  color: $themeFg;
+  border-radius: 18px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
   .selectionFlex {
     display: flex;
     justify-content: center;
@@ -123,5 +125,10 @@
 }
 
 #postWrapper {
-  margin-top: 20px;
+  // padding:20px 20px 20px 20px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  border-bottom-left-radius: 18px;
+  border-bottom-right-radius: 18px;
+  background-color: $themeBgShade;
 }

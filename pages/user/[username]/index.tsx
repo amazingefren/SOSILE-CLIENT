@@ -67,17 +67,23 @@ const UserProfile = () => {
   const { user: me } = cachedUser() as any;
   const [isMe, setIsMe] = useState<boolean>(true);
 
-  const { data: { findPostByUser: posts } = {}, fetchMore: postsRefresh } =
-    useQuery(GET_USER_POST_QUERY, {
-      variables: { username },
-      skip: !username,
-    });
+  const {
+    data: { findPostByUser: posts } = {},
+    fetchMore: postsRefresh,
+    loading: postLoading,
+  } = useQuery(GET_USER_POST_QUERY, {
+    variables: { username },
+    skip: !username,
+  });
 
-  const { data: { findUserByUsername: user } = {}, fetchMore: userRefresh } =
-    useQuery(GET_USER_QUERY, {
-      variables: { username },
-      skip: !username,
-    });
+  const {
+    data: { findUserByUsername: user } = {},
+    fetchMore: userRefresh,
+    loading: userLoading,
+  } = useQuery(GET_USER_QUERY, {
+    variables: { username },
+    skip: !username,
+  });
 
   const [followUser] = useMutation(FOLLOW_USER_MUTATION, {
     onCompleted: (data) => {
@@ -121,7 +127,8 @@ const UserProfile = () => {
   return (
     <Layout title={user ? user.username + "@" + username : ""}>
       <div id={ProfileStyle.root}>
-        {user && (
+        {userLoading && <div>Loading...</div>}
+        {user && !userLoading && (
           <div id={ProfileStyle.header}>
             <div id={ProfileStyle.headerImg}></div>
             <div id={ProfileStyle.headerUser}>
@@ -155,7 +162,8 @@ const UserProfile = () => {
             </div>
           </div>
         )}
-        {user && true && (
+        {postLoading && <div>Loading...</div>}
+        {user && !postLoading && (
           <div id={ProfileStyle.selection}>
             <div className={ProfileStyle.selectionFlex}>
               <div id={ProfileStyle.selectionPosts}>Posts</div>
