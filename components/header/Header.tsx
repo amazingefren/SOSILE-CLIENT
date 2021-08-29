@@ -1,5 +1,6 @@
 import { DocumentNode, gql, useLazyQuery } from "@apollo/client";
-import { useEffect, useState } from "react";
+import router from "next/router";
+import { useEffect, useRef, useState } from "react";
 import { User } from "../../graphql/user/user.model";
 import HeaderStyle from "./header.module.scss";
 
@@ -17,13 +18,20 @@ const SearchResult = ({ user }: { user: User }) => {
   //   console.log(user.username)
   // })
   return (
-    <div className={HeaderStyle.searchBarResultItem}>
+    <div
+      className={HeaderStyle.searchBarResultItem}
+      onClick={() => {
+        router.push("/user/" + user.username);
+      }}
+    >
       <div>{user?.username}</div>
     </div>
   );
 };
 
 const Header = () => {
+  const searchRef = useRef(null);
+  const resultRef = useRef(null);
   const [searchInput, setSearchInput] = useState("");
   const [searchActive, setSearchActive] = useState(false);
   const [typing, setTyping] = useState(false);
@@ -38,18 +46,16 @@ const Header = () => {
     setTyping(true);
     setSearchInput(e.target.value);
   };
-
-  // useEffect(() => {
-  //   window.addEventListener("click", (e: any) => {
-  //     if (document) {
-  //       if (document.getElementById("searchBarId")?.contains(e.target)) {
-  //         setSearchActive(true);
-  //       } else {
-  //         setSearchActive(false);
-  //       }
-  //     }
-  //   });
-  // });
+  const handleSearchClick = (event: any) => {
+    if (
+      searchRef.current &&
+      resultRef.current &&
+      searchRef.current != event.target &&
+      resultRef.current != event.target
+    ) {
+      setSearchActive(false);
+    }
+  };
 
   useEffect(() => {
     let timer = setTimeout(() => setTyping(false), 350);
@@ -59,7 +65,15 @@ const Header = () => {
       }
     }
     return () => clearTimeout(timer);
-  }, [searchInput, typing]);
+  }, [searchInput, typing, findUser]);
+
+  useEffect(() => {
+    document.addEventListener("click", handleSearchClick, false);
+    return () => {
+      document.removeEventListener("click", handleSearchClick, false);
+    };
+  }, []);
+
   return (
     <header id={HeaderStyle.container}>
       <div id={HeaderStyle.sosile}>
@@ -82,10 +96,10 @@ const Header = () => {
             value={searchInput}
             onChange={handleSearchInput}
             onFocus={() => setSearchActive(true)}
-            onBlur={() => setSearchActive(false)}
+            ref={searchRef}
           />
           {searchActive && (
-            <div id={HeaderStyle.searchBarResult}>
+            <div id={HeaderStyle.searchBarResult} ref={resultRef}>
               {data?.userSearch &&
                 data?.userSearch.map((user: User) => {
                   return <SearchResult key={user.id} user={user} />;
