@@ -1,4 +1,4 @@
-import { DocumentNode, gql, useLazyQuery } from "@apollo/client";
+import { gql, useLazyQuery } from "@apollo/client";
 import router from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { User } from "../../graphql/user/user.model";
@@ -14,9 +14,6 @@ const SEARCH_QUERY = gql`
 `;
 
 const SearchResult = ({ user }: { user: User }) => {
-  // useEffect(()=>{
-  //   console.log(user.username)
-  // })
   return (
     <div
       className={HeaderStyle.searchBarResultItem}
@@ -35,11 +32,8 @@ const Header = () => {
   const [searchInput, setSearchInput] = useState("");
   const [searchActive, setSearchActive] = useState(false);
   const [typing, setTyping] = useState(false);
-  const [findUser, { data }] = useLazyQuery(SEARCH_QUERY, {
-    onCompleted: (d) => {
-      console.log(d.userSearch);
-    },
-  });
+  const [findUser, { data: { userSearch: searchResult = null } = {} }] =
+    useLazyQuery(SEARCH_QUERY);
 
   const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.persist();
@@ -100,8 +94,8 @@ const Header = () => {
           />
           {searchActive && (
             <div id={HeaderStyle.searchBarResult} ref={resultRef}>
-              {data?.userSearch &&
-                data?.userSearch.map((user: User) => {
+              {searchResult &&
+                searchResult.map((user: User) => {
                   return <SearchResult key={user.id} user={user} />;
                 })}
             </div>

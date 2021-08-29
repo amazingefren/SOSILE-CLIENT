@@ -5,7 +5,6 @@ import React, { useEffect, useState } from "react";
 import Layout from "../../../components/layout/Layout";
 import PostCard from "../../../components/posts/Card";
 import { FeedPost } from "../../../graphql/post/post.model";
-import { User } from "../../../graphql/user/user.model";
 import cachedUser from "../../../hooks/getUser";
 import { protect } from "../../../hooks/protected";
 import ProfileStyle from "./index.module.scss";
