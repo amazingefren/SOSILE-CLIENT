@@ -1,5 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
-import { FeedPost } from "../../graphql/models/post.model";
+import { useEffect } from "react";
+import { FeedPost } from "../../graphql/post/post.model";
 import HomeStyles from "../../styles/home/home.module.scss";
 import PostCard from "../posts/Card";
 
@@ -28,11 +29,25 @@ const FEED_QUERY = gql`
 `;
 
 const HomePostFeed = () => {
-  const { data: postData, loading: postLoading } = useQuery(FEED_QUERY, {
-    onCompleted: (data) => {
-      console.log(data);
-    },
-  });
+  const {
+    data: postData,
+    loading: postLoading,
+    refetch,
+    startPolling,
+    stopPolling,
+  } = useQuery(FEED_QUERY, { skip: false });
+
+  useEffect(() => {
+    refetch();
+    // previous data + append new instead of remap postData?
+    // this would require a seperate state to maintain session
+    // without a new postData change clearing older posts
+    startPolling(5000);
+    return () => {
+      stopPolling();
+    };
+  }, [refetch]);
+
   return (
     <div id={HomeStyles.postContainer}>
       {postLoading && <div>SPINNER</div>}

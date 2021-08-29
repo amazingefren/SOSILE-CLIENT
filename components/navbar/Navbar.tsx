@@ -1,4 +1,4 @@
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { gql, useMutation } from "@apollo/client";
 import router, { useRouter } from "next/dist/client/router";
 import { useEffect, useState } from "react";
 import { isAuthInVar } from "../../apollo.cache";
