@@ -1,4 +1,4 @@
-import { gql, useLazyQuery, useMutation } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 // import Link from 'next/link'
@@ -33,8 +33,8 @@ const GET_USER_QUERY = gql`
 `;
 
 const GET_USER_POST_QUERY = gql`
-  query findpostbyuserid($id: Float!) {
-    findPostByUserId(user: $id) {
+  query findpostbyuser($username: String!) {
+    findPostByUser(where: { username: $username }) {
       id
       updated
       content
@@ -61,8 +61,7 @@ const UNFOLLOW_USER_MUTATION = gql`
 `;
 
 const UserProfile = () => {
-  const router = useRouter();
-  let { username } = router.query;
+  let { username } = useRouter().query;
   protect({
     to: "/",
   });
@@ -71,45 +70,21 @@ const UserProfile = () => {
   const [posts, setPosts] = useState<FeedPost[] | null>(null);
   const [isMe, setIsMe] = useState<boolean>(true);
 
-  const [callPosts, { data: postData }] = useLazyQuery(GET_USER_POST_QUERY, {
+  useQuery(GET_USER_POST_QUERY, {
+    variables: { username },
+    skip: !username,
     onCompleted: (data) => {
-      // console.log(data)
-      setPosts(data.findPostByUserId);
+      setPosts(data.findPostByUser);
     },
   });
 
-  const [getUser, { data: userData }] = useLazyQuery(GET_USER_QUERY, {
+  useQuery(GET_USER_QUERY, {
     variables: { username },
+    skip: !username,
     onCompleted: (data) => {
       setUser(data.findUserByUsername);
-      callPosts({ variables: { id: Number(data.findUserByUsername.id) } });
-      console.log("HELLO");
     },
   });
-
-  useEffect(() => {
-    if (username && !userData) {
-      getUser();
-    }
-    if (userData?.findUserByUsername) {
-      setUser(userData.findUserByUsername);
-      !postData &&
-        callPosts({
-          variables: { id: Number(userData.findUserByUsername.id) },
-        });
-      postData && setPosts(postData.findPostByUserId);
-    }
-  }, [username, userData]);
-
-  useEffect(() => {
-    if (me && user) {
-      if (me.username === user?.username) {
-        setIsMe(true);
-      } else {
-        setIsMe(false);
-      }
-    }
-  }, [user, me]);
 
   const [followUser] = useMutation(FOLLOW_USER_MUTATION, {
     onCompleted: (data) => {
@@ -142,6 +117,16 @@ const UserProfile = () => {
       unfollowUser({ variables: { id: user!.id } });
     }
   };
+
+  useEffect(() => {
+    if (me && user) {
+      if (me.username === user?.username) {
+        setIsMe(true);
+      } else {
+        setIsMe(false);
+      }
+    }
+  }, [user, me]);
 
   return (
     <Layout title={user ? user.username + "@" + username : ""}>
