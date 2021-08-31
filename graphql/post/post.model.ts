@@ -1,5 +1,18 @@
 import { User } from "../user/user.model";
 
+export interface Comment {
+  id: number;
+  content: string;
+  date?: Date;
+  likes?: User[];
+  author?: User;
+  post?: Post;
+  liked?: Boolean;
+  _count?: CommentCount;
+}
+class CommentCount {
+  likes?: number;
+}
 export interface Post {
   id: number;
   author?: User;
@@ -8,6 +21,7 @@ export interface Post {
   updated: Date;
   history?: PostHistory[];
   likes?: User[];
+  comments?: Comment[];
   replies?: Post[];
   parents?: Post[];
   isReply?: boolean;
@@ -58,3 +72,12 @@ export interface FeedPost {
   liked?: Boolean;
   _count?: PostCounts;
 }
+/* export interface PostComment {
+
+} */
+
+/* type Required<T> = {
+    [P in keyof T]-?: T[P];
+}; */
+
+export type PostComment = Exclude<Comment, "Post">;

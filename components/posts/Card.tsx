@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { FeedPost, Post } from "../../graphql/models/post.model";
 import Style from "./card.module.scss";
 
-function convertDate(date: string) {
+export const convertDate = (date: string) => {
   const time = new Date().getTime() - new Date(date).getTime();
 
   const seconds = Math.floor(time / 1000);
@@ -18,7 +18,7 @@ function convertDate(date: string) {
     case seconds / 60 / 60 / 24 < 30:
       return Math.floor(seconds / 60 / 60 / 24) + "d";
   }
-}
+};
 
 const PostCard = ({ props }: { props: FeedPost }) => {
   const [postLikes, setPostLikes] = useState(Number(props._count?.likes));
