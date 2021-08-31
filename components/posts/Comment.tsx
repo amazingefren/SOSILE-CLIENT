@@ -21,4 +21,4 @@ const CommentCard = ({ comment }: { comment: Required<PostComment> }) => {
   );
 };
 
-export { CommentCard };
+export default CommentCard;

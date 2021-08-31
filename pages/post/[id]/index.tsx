@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import Layout from "../../../components/layout/Layout";
 import PostCard from "../../../components/posts/Card";
-import { CommentCard } from "../../../components/posts/Comment";
+import CommentCard from "../../../components/posts/Comment";
 import { PostComment } from "../../../graphql/post/post.model";
 import { CachedUser } from "../../../graphql/user/user.model";
 import cachedUser from "../../../hooks/getUser";
