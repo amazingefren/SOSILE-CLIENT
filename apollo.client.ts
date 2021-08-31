@@ -32,6 +32,8 @@ const refreshAuth = async () => {
         window.localStorage.removeItem("refresh_token");
         isAuthInVar(false);
         throw new Error("[AuthRefresh] Returned False");
+      } else {
+        throw new Error("[AuthRefresh] Borked");
       }
     });
 };
