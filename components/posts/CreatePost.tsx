@@ -56,6 +56,7 @@ const CreatePost = ({
     comment ? CREATE_COMMENT_MUTATION : CREATE_POST_MUTATION,
     {
       onCompleted: ({ createPost, createComment }) => {
+        setUserInput("");
         adjuster("increase");
         comment
           ? setNewPost([createComment, ...newPost])
