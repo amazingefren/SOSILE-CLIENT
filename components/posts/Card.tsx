@@ -141,7 +141,6 @@ const PostCard = ({
   };
 
   const handlePostDelete = () => {
-    console.log(props.id);
     deletePost({ variables: { postId: props.id, comment } });
   };
 

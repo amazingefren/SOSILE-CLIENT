@@ -1,5 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
-import React, { useEffect } from "react";
+import React from "react";
 import { FeedPost } from "../../graphql/post/post.model";
 import HomeStyles from "../../styles/home/home.module.scss";
 import PostCard from "../posts/Card";

@@ -74,6 +74,7 @@ const UserProfile = () => {
   } = useQuery(GET_USER_POST_QUERY, {
     variables: { username },
     skip: !username,
+    fetchPolicy: "no-cache",
   });
 
   const {
@@ -83,6 +84,7 @@ const UserProfile = () => {
   } = useQuery(GET_USER_QUERY, {
     variables: { username },
     skip: !username,
+    fetchPolicy: "no-cache",
   });
 
   const [followUser] = useMutation(FOLLOW_USER_MUTATION, {
