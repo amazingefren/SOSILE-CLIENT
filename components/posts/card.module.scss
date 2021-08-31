@@ -84,6 +84,13 @@ $containerRadius: 18px;
   align-items: center;
   height: 90px;
   align-content: center;
+  position: relative;
+  .postTrashCan {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: $themeRed;
+  }
 }
 
 .postUserNest {

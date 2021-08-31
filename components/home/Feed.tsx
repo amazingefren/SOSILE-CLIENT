@@ -51,7 +51,7 @@ const HomePostFeed = () => {
 
   return (
     <div id={HomeStyles.postContainer}>
-      <CreatePost props={{ refetch }} />
+      <CreatePost />
       {postLoading && <div>SPINNER</div>}
       {postData?.getFeed &&
         postData?.getFeed.map((post: FeedPost) => {

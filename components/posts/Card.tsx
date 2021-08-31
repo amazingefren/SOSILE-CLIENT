@@ -1,7 +1,9 @@
 import { gql, useMutation } from "@apollo/client";
 import router from "next/router";
 import { useEffect, useState } from "react";
-import { FeedPost, Post } from "../../graphql/models/post.model";
+import { FeedPost } from "../../graphql/post/post.model";
+import { CachedUser } from "../../graphql/user/user.model";
+import cachedUser from "../../hooks/getUser";
 import Style from "./card.module.scss";
 
 export const convertDate = (date: string) => {
@@ -20,9 +22,23 @@ export const convertDate = (date: string) => {
   }
 };
 
-const PostCard = ({ props }: { props: FeedPost }) => {
+const DELETE_POST_MUTATION = gql`
+  mutation deletePost($id: Float!) {
+    deletePost(postId: $id)
+  }
+`;
+
+const PostCard = ({
+  props,
+  temp = false,
+}: {
+  props: FeedPost;
+  temp?: boolean;
+}) => {
+  const { user: me }: { user: CachedUser | null } = cachedUser();
   const [postLikes, setPostLikes] = useState(Number(props._count?.likes));
   const [postLiked, setPostLiked] = useState(Boolean(props.liked) || false);
+  const [loaded, setLoaded] = useState<boolean>(false);
   const [likePost] = useMutation(
     gql`
     mutation likepost {
@@ -41,10 +57,22 @@ const PostCard = ({ props }: { props: FeedPost }) => {
     }
   );
 
+  const [deletePost] = useMutation(DELETE_POST_MUTATION, {
+    onCompleted: ({ deletePost }) => {
+      if (deletePost) {
+        setLoaded(false);
+      }
+    },
+  });
+
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
+
   const handleUserRoute = () => {
-    const to = "/user/" + props.author.username;
+    const to = "/user/" + props.author?.username;
     if (router.route != to) {
-      router.push("/user/" + props.author.username);
+      router.push("/user/" + props.author?.username);
     }
   };
 
@@ -55,49 +83,71 @@ const PostCard = ({ props }: { props: FeedPost }) => {
     }
   };
 
+  const handlePostDelete = () => {
+    deletePost({ variables: { id: props.id } });
+  };
+
   return (
-    <div className={Style.container}>
-      <div className={Style.postTop} onClick={handlePostRoute}>
-        <div className={Style.postUserImage} onClick={handleUserRoute}></div>
-        <div className={Style.postUserNest}>
-          <div className={Style.postDisplayName}>
-            {props.author?.displayName}
-          </div>
-          <div className={Style.postUserSeperator}>‧</div>
-          <div className={Style.postUsername}>{props.author?.username}</div>
-          {props.author?._count?.followers && (
-            <>
-              <div className={Style.postUserSeperator}>‧</div>
-              <div className={Style.postFollowerCount}>
-                {props.author?._count?.followers} followers{" "}
+    <>
+      {loaded ? (
+        <>
+          <div className={Style.container}>
+            <div className={Style.postTop}>
+              <div
+                className={Style.postUserImage}
+                onClick={handleUserRoute}
+              ></div>
+              <div className={Style.postUserNest}>
+                <div className={Style.postDisplayName}>
+                  {props.author?.displayName}
+                </div>
+                <div className={Style.postUserSeperator}>‧</div>
+                <div className={Style.postUsername}>
+                  {props.author?.username}
+                </div>
+                <div className={Style.postUserSeperator}>‧</div>
+                <div className={Style.postTime}>{convertDate(props.date)}</div>
               </div>
-            </>
-          )}
-          <div className={Style.postUserSeperator}>‧</div>
-          <div className={Style.postTime}>{convertDate(props.date)}</div>
-        </div>
-      </div>
-      <div className={Style.postMiddle} onClick={handlePostRoute}>
-        {props.content}
-      </div>
-      <div className={Style.postBottom}>
-        <div className={Style.postBottomComments}>
-          <span>{props._count.comments} comments</span>
-        </div>
-        <div
-          className={
-            postLiked
-              ? Style.postBottomLikes + " " + Style.postLiked
-              : Style.postBottomLikes
-          }
-          onClick={async () => {
-            await likePost();
-          }}
-        >
-          <span>{postLikes == 1 ? "1 like" : postLikes + " likes"}</span>
-        </div>
-      </div>
-    </div>
+              {props.author?.id === me?.id && (
+                <div className={Style.postTrashCan} onClick={handlePostDelete}>
+                  DEL
+                </div>
+              )}
+            </div>
+            <div className={Style.postMiddle} onClick={handlePostRoute}>
+              {props.content}
+            </div>
+            <div className={Style.postBottom}>
+              {temp ? (
+                <></>
+              ) : (
+                <>
+                  <div className={Style.postBottomComments}>
+                    <span>{props._count?.comments} comments</span>
+                  </div>
+                  <div
+                    className={
+                      postLiked
+                        ? Style.postBottomLikes + " " + Style.postLiked
+                        : Style.postBottomLikes
+                    }
+                    onClick={async () => {
+                      await likePost();
+                    }}
+                  >
+                    <span>
+                      {postLikes == 1 ? "1 like" : postLikes + " likes"}
+                    </span>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+        </>
+      ) : (
+        <></>
+      )}
+    </>
   );
 };
 

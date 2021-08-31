@@ -51,7 +51,7 @@ export class PostIncludeOpts {
 
 export class PostCounts {
   likes?: boolean = false;
-  replies?: boolean = false;
+  comments?: boolean = false;
 }
 export interface PostHistory {
   id: number;
