@@ -56,7 +56,7 @@ const PostCard = ({
   temp = false,
   comment = false,
   toggleComments = false,
-  adjuster = null,
+  adjuster = () => {},
 }: {
   props: FeedPost | Comment;
   temp?: boolean;
@@ -83,7 +83,7 @@ const PostCard = ({
       loading: commentLoading,
     },
   ] = useLazyQuery(GET_POST_COMMENT_QUERY, {
-    fetchPolicy: "cache-first",
+    fetchPolicy: "no-cache",
     onCompleted: ({ findPost: { comments: commentData } }) => {
       console.log(commentData);
     },
@@ -110,9 +110,7 @@ const PostCard = ({
   const [deletePost] = useMutation(DELETE_POST_MUTATION, {
     onCompleted: ({ deletePost }) => {
       if (deletePost) {
-        if (adjuster) {
-          adjuster("decrease");
-        }
+        adjuster("decrease");
         setLoaded(false);
       }
     },

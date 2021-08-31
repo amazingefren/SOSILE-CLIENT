@@ -41,7 +41,11 @@ interface CreatePostProps {
   adjuster?: any;
 }
 
-const CreatePost = ({ postId, comment = false, adjuster }: CreatePostProps) => {
+const CreatePost = ({
+  postId,
+  comment = false,
+  adjuster = () => {},
+}: CreatePostProps) => {
   const { user: me } = cachedUser() as { user: Required<CachedUser> };
   const [userInput, setUserInput] = useState<string>("");
   // const [disabled, setDisabled] = useState<boolean>(true);
@@ -112,7 +116,7 @@ const CreatePost = ({ postId, comment = false, adjuster }: CreatePostProps) => {
             key={post.id}
             props={{ ...post, author: me }}
             temp={true}
-            comment={true}
+            comment={comment}
             adjuster={adjuster}
           />
         ))}
