@@ -63,6 +63,7 @@ $containerRadius: 18px;
     cursor: pointer;
     user-select: none;
   }
+  .postBottomExpand,
   .postBottomShare,
   .postBottomComments,
   .postBottomLikes {
@@ -146,7 +147,8 @@ $containerRadius: 18px;
   width: 100%;
   height: 100%;
   display: flex;
-  justify-content: center;
+  padding-top: 20px;
+  justify-content: flex-start;
   flex-direction: column;
   align-items: center;
   font-size: 1.3em;

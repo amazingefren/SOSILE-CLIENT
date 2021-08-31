@@ -5,7 +5,6 @@ import { FeedPost, Comment } from "../../graphql/post/post.model";
 import { CachedUser } from "../../graphql/user/user.model";
 import cachedUser from "../../hooks/getUser";
 import Style from "./card.module.scss";
-import CommentCard from "./Comment";
 import CreatePost from "./CreatePost";
 
 const GET_POST_COMMENT_QUERY = gql`
@@ -30,8 +29,8 @@ const GET_POST_COMMENT_QUERY = gql`
 `;
 
 const DELETE_POST_MUTATION = gql`
-  mutation deletePost($id: Float!, $comment: Boolean!) {
-    deletePost(postId: $id, comment: $comment)
+  mutation deletePost($postId: Float!, $comment: Boolean!) {
+    deletePost(postId: $postId, comment: $comment)
   }
 `;
 
@@ -134,15 +133,16 @@ const PostCard = ({
     }
   };
 
-  // const handlePostRoute = () => {
-  //   const to = "/post/" + props.id;
-  //   if (router.route != to) {
-  //     router.push("/post/" + props.id);
-  //   }
-  // };
+  const handlePostRoute = () => {
+    const to = "/post/" + props.id;
+    if (router.route != to) {
+      router.push("/post/" + props.id);
+    }
+  };
 
   const handlePostDelete = () => {
-    deletePost({ variables: { id: props.id, comment } });
+    console.log(props.id);
+    deletePost({ variables: { postId: props.id, comment } });
   };
 
   const handleShareLinkSelect = (e: any) => {
@@ -241,6 +241,9 @@ const PostCard = ({
                 onClick={() => setShareToggle(!shareToggle)}
               >
                 <span>share</span>
+              </div>
+              <div className={Style.postBottomExpand} onClick={handlePostRoute}>
+                <span>expand</span>
               </div>
             </div>
             {shareToggle && (
