@@ -28,7 +28,7 @@ const refreshAuth = async () => {
         console.log(data);
         console.log("ok");
         return;
-      } else if (!data.AuthRefresh) {
+      } else if (data.AuthRefresh == false) {
         window.localStorage.removeItem("refresh_token");
         isAuthInVar(false);
         throw new Error("[AuthRefresh] Returned False");
