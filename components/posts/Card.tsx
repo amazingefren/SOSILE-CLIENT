@@ -1,10 +1,39 @@
-import { gql, useMutation } from "@apollo/client";
+import { gql, useLazyQuery, useMutation } from "@apollo/client";
 import router from "next/router";
-import { useEffect, useState } from "react";
-import { FeedPost } from "../../graphql/post/post.model";
+import React, { useEffect, useState } from "react";
+import { FeedPost, Comment } from "../../graphql/post/post.model";
 import { CachedUser } from "../../graphql/user/user.model";
 import cachedUser from "../../hooks/getUser";
 import Style from "./card.module.scss";
+import CommentCard from "./Comment";
+import CreatePost from "./CreatePost";
+
+const GET_POST_COMMENT_QUERY = gql`
+  query getPostComments($id: Float!) {
+    findPost(id: $id) {
+      comments {
+        id
+        content
+        date
+        author {
+          id
+          username
+          displayName
+        }
+        liked
+        _count {
+          likes
+        }
+      }
+    }
+  }
+`;
+
+const DELETE_POST_MUTATION = gql`
+  mutation deletePost($id: Float!, $comment: Boolean!) {
+    deletePost(postId: $id, comment: $comment)
+  }
+`;
 
 export const convertDate = (date: string) => {
   const time = new Date().getTime() - new Date(date).getTime();
@@ -22,29 +51,41 @@ export const convertDate = (date: string) => {
   }
 };
 
-const DELETE_POST_MUTATION = gql`
-  mutation deletePost($id: Float!) {
-    deletePost(postId: $id)
-  }
-`;
-
 const PostCard = ({
   props,
   temp = false,
+  comment = false,
 }: {
-  props: FeedPost;
+  props: FeedPost | Comment;
   temp?: boolean;
+  comment?: boolean;
 }) => {
   const { user: me }: { user: CachedUser | null } = cachedUser();
   const [postLikes, setPostLikes] = useState(Number(props._count?.likes));
   const [postLiked, setPostLiked] = useState(Boolean(props.liked) || false);
   const [deleteToggle, setDeleteToggle] = useState(false);
   const [shareToggle, setShareToggle] = useState(false);
+  const [commentToggle, setCommentToggle] = useState(false);
   const [loaded, setLoaded] = useState<boolean>(false);
+
+  const [
+    getComments,
+    // { data: { findPost: { comments: commentData } = [] } = {} },
+    {
+      data: { findPost: { comments: commentData = [] } = [] } = {},
+      loading: commentLoading,
+    },
+  ] = useLazyQuery(GET_POST_COMMENT_QUERY, {
+    fetchPolicy: "cache-first",
+    onCompleted: ({ findPost: { comments: commentData } }) => {
+      console.log(commentData);
+    },
+  });
+
   const [likePost] = useMutation(
     gql`
     mutation likepost {
-      postLikeToggle(postId: ${props.id})
+      postLikeToggle(postId: ${props.id}, comment:${comment})
     }`,
     {
       onCompleted: ({ postLikeToggle }) => {
@@ -71,6 +112,13 @@ const PostCard = ({
     setLoaded(true);
   }, []);
 
+  // useEffect(() => {
+  //   if (commentToggle) {
+  //     getComments({ variables: { id: props.id } });
+  //   } else {
+  //   }
+  // }, [commentToggle]);
+
   const handleUserRoute = () => {
     const to = "/user/" + props.author?.username;
     if (router.route != to) {
@@ -86,11 +134,20 @@ const PostCard = ({
   };
 
   const handlePostDelete = () => {
-    deletePost({ variables: { id: props.id } });
+    deletePost({ variables: { id: props.id, comment } });
   };
 
   const handleShareLinkSelect = (e: any) => {
     e.target.select();
+  };
+
+  const handleCommentToggle = () => {
+    if (!commentToggle) {
+      getComments({ variables: { id: props.id } });
+      setCommentToggle(true);
+    } else {
+      setCommentToggle(false);
+    }
   };
 
   return (
@@ -131,20 +188,22 @@ const PostCard = ({
                 <></>
               ) : (
                 <>
-                  <div
-                    className={Style.postBottomComments}
-                    onClick={handlePostRoute}
-                  >
-                    <span>{props._count?.comments} comments</span>
-                  </div>
+                  {!comment && (
+                    <div
+                      className={Style.postBottomComments}
+                      onClick={handleCommentToggle}
+                    >
+                      <span>{props._count?.comments} comments</span>
+                    </div>
+                  )}
                   <div
                     className={
                       postLiked
                         ? Style.postBottomLikes + " " + Style.postLiked
                         : Style.postBottomLikes
                     }
-                    onClick={async () => {
-                      await likePost();
+                    onClick={() => {
+                      likePost();
                     }}
                   >
                     <span>
@@ -160,6 +219,29 @@ const PostCard = ({
                 <span>share</span>
               </div>
             </div>
+            {shareToggle && (
+              <div className={Style.postShareContainer}>
+                <div className={Style.postShareWrapper}>
+                  <input
+                    className={Style.postShareLink}
+                    value={
+                      !comment
+                        ? "http://localhost:3000/post/" + props.id
+                        : "NOT IMPLEMENTED"
+                    }
+                    autoFocus={true}
+                    onFocus={handleShareLinkSelect}
+                    readOnly={true}
+                  />
+                  <div
+                    className={Style.postShareClose}
+                    onClick={() => setShareToggle(false)}
+                  >
+                    X
+                  </div>
+                </div>
+              </div>
+            )}
             {deleteToggle && (
               <div className={Style.postDeleteContainer}>
                 <div className={Style.postDeleteHeader}>ARE YOU SURE</div>
@@ -179,23 +261,12 @@ const PostCard = ({
                 </div>
               </div>
             )}
-            {shareToggle && (
-              <div className={Style.postShareContainer}>
-                <div className={Style.postShareWrapper}>
-                  <input
-                    className={Style.postShareLink}
-                    value={"http://localhost:3000/post/" + props.id}
-                    autoFocus={true}
-                    onFocus={handleShareLinkSelect}
-                    readOnly={true}
-                  />
-                  <div
-                    className={Style.postShareClose}
-                    onClick={() => setShareToggle(false)}
-                  >
-                    X
-                  </div>
-                </div>
+            {commentToggle && commentData && !commentLoading && (
+              <div className={Style.postCommentContainer}>
+                <CreatePost postId={props.id} comment={true} />
+                {commentData.map((comment: Comment) => (
+                  <PostCard key={comment.id} comment={true} props={comment} />
+                ))}
               </div>
             )}
           </div>

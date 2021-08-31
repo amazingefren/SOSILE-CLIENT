@@ -1,6 +1,7 @@
 import router from "next/router";
 import { PostComment } from "../../graphql/post/post.model";
 import CommentStyle from "./comment.module.scss";
+import PostStyle from "./card.module.scss";
 
 const CommentCard = ({ comment }: { comment: Required<PostComment> }) => {
   const handleUserRoute = () => {
@@ -13,10 +14,12 @@ const CommentCard = ({ comment }: { comment: Required<PostComment> }) => {
   /*WIP*/
   return (
     <div className={CommentStyle.container}>
-      <div className={CommentStyle.hi}>HELLO WORLD</div>
-      <div className={CommentStyle.hi}>HELLO WORLD</div>
-      <div className={CommentStyle.hi}>HELLO WORLD</div>
-      <div className={CommentStyle.hi}>HELLO WORLD</div>
+      <div className={CommentStyle.top}>
+        <div className={CommentStyle.topUser}>
+          <div className={CommentStyle.topUserImage} />
+          <div className={CommentStyle.topUserImage} />
+        </div>
+      </div>
     </div>
   );
 };

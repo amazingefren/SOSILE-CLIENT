@@ -3,7 +3,7 @@ import { User } from "../user/user.model";
 export interface Comment {
   id: number;
   content: string;
-  date?: Date;
+  date: string;
   likes?: User[];
   author?: User;
   post?: Post;
@@ -12,20 +12,21 @@ export interface Comment {
 }
 class CommentCount {
   likes?: number;
+  comments?: Comment[] = [];
 }
 export interface Post {
   id: number;
   author?: User;
   content: string;
   date: string;
-  updated: Date;
+  updated: string;
   history?: PostHistory[];
   likes?: User[];
   comments?: Comment[];
   replies?: Post[];
   parents?: Post[];
   isReply?: boolean;
-  _count: PostCounts;
+  _count?: PostCounts;
 }
 export class PostFields {
   id = true;
@@ -56,7 +57,7 @@ export class PostCounts {
 export interface PostHistory {
   id: number;
   content: string;
-  date: Date;
+  date: string;
   parent?: Post;
 }
 export interface CreatePostInput {
@@ -67,7 +68,7 @@ export interface FeedPost {
   author?: User;
   content: string;
   date: string;
-  updated: Date;
+  updated: string;
   history?: PostHistory[];
   liked?: Boolean;
   _count?: PostCounts;

@@ -53,6 +53,7 @@ const PostProfile = () => {
     {
       variables: { id: Number(postId) },
       skip: !postId,
+      fetchPolicy: "no-cache",
     }
   );
 
@@ -71,11 +72,11 @@ const PostProfile = () => {
         {!postLoading && postData && (
           <>
             <PostCard key={postData.id} props={postData} />
-            {!postLoading &&
+            {/*!postLoading &&
               postData.comments.map((comment: Required<PostComment>) => {
                 console.log(comment);
                 return <CommentCard key={comment.id} comment={comment} />;
-              })}
+              })*/}
           </>
         )}
       </div>
