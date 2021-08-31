@@ -42,7 +42,7 @@
   .searchBar {
     // height: 100%;
     // background-color: blue;
-    border: 1px solid $themeBgShade;
+    border: 1px solid $themeBgSelection;
     border-radius: 18px;
     border-top-right-radius: 18px;
     border-top-left-radius: 18px;
@@ -84,6 +84,7 @@
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
     transition: 0.15s;
+    border: 1px solid $themeGreen;
     // #searchBarInput {
     // border-bottom: 1px solid black;
     // }
@@ -91,7 +92,31 @@
       transition: 0.3s;
       opacity: 0;
       animation: searchBarFade 0.15s forwards 0.05s ease-out;
-      border: 1px solid $themeBgShade;
+      border: 1px solid $themeGreen;
+      cursor: pointer;
+      height: auto;
+      overflow: hidden;
+      .searchBarResultItem {
+        display: flex;
+        flex-direction: row;
+        // border-radius: 18px;
+        align-content: center;
+        .searchBarResultImage {
+          margin-right: 10px;
+          border-radius: 12px;
+          height: 40px;
+          width: 40px;
+          background-color: $themeGreen;
+        }
+        .searchBarResultName {
+          height: auto;
+          display: flex;
+          align-items: center;
+        }
+      }
+      .searchBarResultItem:hover {
+        background-color: $themeBgSelection;
+      }
     }
   }
 

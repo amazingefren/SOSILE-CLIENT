@@ -1,10 +1,9 @@
 @import "../../styles/theme.scss";
 
-$containerRadius: 18px;
-
 .container {
-  border-radius: $containerRadius;
+  border-radius: 20px;
   // margin-bottom: 20px;
+  background-color: $themeBgShade;
   margin: 20px;
   color: $themeFg;
   display: grid;
@@ -14,12 +13,12 @@ $containerRadius: 18px;
   // padding-right: 50px;
   padding-top: 0;
   // border:1px solid red;
-  box-shadow: 0px 0px 10px -6px $themeFg;
-  border: 1px solid $themeBgSelection;
+  box-shadow: 0px 0px 10px -6px black;
+  border: 2px solid $themeBgSelection;
   // cursor: pointer;
-  * {
-    z-index: 3;
-  }
+  // * {
+  //   z-index: 2;
+  // }
   position: relative;
 }
 
@@ -30,7 +29,7 @@ $containerRadius: 18px;
   padding-left: 20px;
   padding-right: 20px;
   background-color: $themeBgAlt;
-  z-index: 3;
+  // z-index: 3;
 }
 .postTop {
   border-top-left-radius: 18px;
@@ -41,19 +40,23 @@ $containerRadius: 18px;
 
 .postUserImage {
   width: 60px;
-  background-color: $themeBlue;
+  background-color: $themeGreen;
   border-radius: 18px;
-  margin-right: 5px;
+  margin-right: 20px;
   cursor: pointer;
   height: 60px;
 }
 
 .postBottom {
   background-color: $themeBgAlt;
-  border-bottom-right-radius: $containerRadius;
-  border-bottom-left-radius: $containerRadius;
+  border-bottom-right-radius: 18px;
+  border-bottom-left-radius: 18px;
   color: $themeFg;
   height: 50px;
+  border: 1px solid $themeBgSelection;
+  margin-left: -1px;
+  margin-right: -1px;
+  margin-bottom: -1px;
   // border-top: 1px solid $themeBlue;
   display: flex;
   justify-content: flex-end;
@@ -78,12 +81,18 @@ $containerRadius: 18px;
     padding-right: 20px;
   }
   .postLiked {
-    color: red;
+    color: $themeGreen;
   }
 }
 
 .postMiddle {
   display: flex;
+  padding-left: 100px;
+  padding-right: 100px;
+  font-size: 1.1em;
+  p {
+    word-break: break-word;
+  }
 }
 
 .postTop {
@@ -103,8 +112,8 @@ $containerRadius: 18px;
     // height: 100%;
     color: $themeRed;
     background-color: $themeRed;
-    padding: 5px;
-    border-radius: 12px;
+    padding: 1px;
+    border-radius: 18px;
     box-sizing: border-box;
   }
 }
@@ -184,7 +193,7 @@ $containerRadius: 18px;
   // height: 0;
   max-height: 0;
   cursor: auto;
-  z-index: 2;
+  // z-index: 2;
   animation: SlideIn 0.3s forwards 0s ease-out;
   .postShareWrapper {
     // height: 100%;

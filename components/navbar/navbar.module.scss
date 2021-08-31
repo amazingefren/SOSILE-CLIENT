@@ -43,13 +43,14 @@
   margin-left: 10px;
   margin-right: 10px;
   transition: 1s;
+  font-weight: bold;
 }
 
 .navButtonActive {
   transition: 1s;
   // background-color: $themeBg;
   // filter: brightness(200%);
-  color: $themeRed;
+  color: $themeGreen;
   // font-weight: bold;
 }
 

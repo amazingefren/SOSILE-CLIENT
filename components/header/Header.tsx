@@ -21,7 +21,10 @@ const SearchResult = ({ user }: { user: User }) => {
         router.push("/user/" + user.username);
       }}
     >
-      <div>{user?.username}</div>
+      <div className={HeaderStyle.searchBarResultImage} />
+      <div className={HeaderStyle.searchBarResultName}>
+        <span>{user?.username}</span>
+      </div>
     </div>
   );
 };

@@ -205,7 +205,9 @@ const PostCard = ({
                 </div>
               )}
             </div>
-            <div className={Style.postMiddle}>{props.content}</div>
+            <div className={Style.postMiddle}>
+              <p> {props.content}</p>
+            </div>
             <div className={Style.postBottom}>
               {temp ? (
                 <></>
