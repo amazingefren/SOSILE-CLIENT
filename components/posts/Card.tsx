@@ -39,6 +39,7 @@ const PostCard = ({
   const [postLikes, setPostLikes] = useState(Number(props._count?.likes));
   const [postLiked, setPostLiked] = useState(Boolean(props.liked) || false);
   const [deleteToggle, setDeleteToggle] = useState(false);
+  const [shareToggle, setShareToggle] = useState(false);
   const [loaded, setLoaded] = useState<boolean>(false);
   const [likePost] = useMutation(
     gql`
@@ -88,6 +89,10 @@ const PostCard = ({
     deletePost({ variables: { id: props.id } });
   };
 
+  const handleShareLinkSelect = (e: any) => {
+    e.target.select();
+  };
+
   return (
     <>
       {loaded ? (
@@ -120,15 +125,16 @@ const PostCard = ({
                 </div>
               )}
             </div>
-            <div className={Style.postMiddle} onClick={handlePostRoute}>
-              {props.content}
-            </div>
+            <div className={Style.postMiddle}>{props.content}</div>
             <div className={Style.postBottom}>
               {temp ? (
                 <></>
               ) : (
                 <>
-                  <div className={Style.postBottomComments}>
+                  <div
+                    className={Style.postBottomComments}
+                    onClick={handlePostRoute}
+                  >
                     <span>{props._count?.comments} comments</span>
                   </div>
                   <div
@@ -147,6 +153,12 @@ const PostCard = ({
                   </div>
                 </>
               )}
+              <div
+                className={Style.postBottomShare}
+                onClick={() => setShareToggle(!shareToggle)}
+              >
+                <span>share</span>
+              </div>
             </div>
             {deleteToggle && (
               <div className={Style.postDeleteContainer}>
@@ -164,6 +176,25 @@ const PostCard = ({
                   >
                     Cancel
                   </button>
+                </div>
+              </div>
+            )}
+            {shareToggle && (
+              <div className={Style.postShareContainer}>
+                <div className={Style.postShareWrapper}>
+                  <input
+                    className={Style.postShareLink}
+                    value={"http://localhost:3000/post/" + props.id}
+                    autoFocus={true}
+                    onFocus={handleShareLinkSelect}
+                    readOnly={true}
+                  />
+                  <div
+                    className={Style.postShareClose}
+                    onClick={() => setShareToggle(false)}
+                  >
+                    X
+                  </div>
                 </div>
               </div>
             )}

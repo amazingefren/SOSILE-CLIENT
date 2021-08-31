@@ -3,19 +3,23 @@
 $containerRadius: 18px;
 
 .container {
-  background-color: $themeBgAlt;
   border-radius: $containerRadius;
   // margin-bottom: 20px;
   margin: 20px;
   color: $themeFg;
   display: grid;
+  transition: all 0.15s;
+  height: auto;
   // padding-left: 50px;
   // padding-right: 50px;
   padding-top: 0;
   // border:1px solid red;
   box-shadow: 0px 0px 10px -6px $themeFg;
   border: 1px solid $themeBgSelection;
-  cursor: pointer;
+  // cursor: pointer;
+  * {
+    z-index: 3;
+  }
   position: relative;
 }
 
@@ -25,8 +29,12 @@ $containerRadius: 18px;
   // margin-top: 0px;
   padding-left: 20px;
   padding-right: 20px;
+  background-color: $themeBgAlt;
+  z-index: 3;
 }
 .postTop {
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
   padding-top: 20px;
   padding-bottom: 10px;
 }
@@ -55,6 +63,7 @@ $containerRadius: 18px;
     cursor: pointer;
     user-select: none;
   }
+  .postBottomShare,
   .postBottomComments,
   .postBottomLikes {
     color: $themeFgInactive;
@@ -161,5 +170,42 @@ $containerRadius: 18px;
     background-color: #{$themeFgInactive}88;
     color: $themeBgAlt;
     cursor: pointer;
+  }
+}
+
+.postShareContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1em;
+  // height: 0;
+  max-height: 0;
+  cursor: auto;
+  z-index: 2;
+  animation: SlideIn 0.3s forwards 0s ease-out;
+  .postShareWrapper {
+    // height: 100%;
+    // border-top: 1px solid red;
+    justify-content: space-between;
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    // position: relative;
+    .postShareClose {
+      // position: absolute;
+      cursor: pointer;
+      top: 20px;
+      right: 20px;
+    }
+  }
+}
+
+@keyframes SlideIn {
+  from {
+    max-height: 0;
+  }
+  to {
+    max-height: 100px;
   }
 }
