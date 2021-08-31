@@ -38,6 +38,7 @@ const PostCard = ({
   const { user: me }: { user: CachedUser | null } = cachedUser();
   const [postLikes, setPostLikes] = useState(Number(props._count?.likes));
   const [postLiked, setPostLiked] = useState(Boolean(props.liked) || false);
+  const [deleteToggle, setDeleteToggle] = useState(false);
   const [loaded, setLoaded] = useState<boolean>(false);
   const [likePost] = useMutation(
     gql`
@@ -109,7 +110,12 @@ const PostCard = ({
                 <div className={Style.postTime}>{convertDate(props.date)}</div>
               </div>
               {props.author?.id === me?.id && (
-                <div className={Style.postTrashCan} onClick={handlePostDelete}>
+                <div
+                  className={Style.postTrashCan}
+                  onClick={() => {
+                    setDeleteToggle(true);
+                  }}
+                >
                   DEL
                 </div>
               )}
@@ -142,6 +148,25 @@ const PostCard = ({
                 </>
               )}
             </div>
+            {deleteToggle && (
+              <div className={Style.postDeleteContainer}>
+                <div className={Style.postDeleteHeader}>ARE YOU SURE</div>
+                <div>
+                  <button
+                    onClick={handlePostDelete}
+                    className={Style.postDeleteButtonYes}
+                  >
+                    Confirm
+                  </button>
+                  <button
+                    onClick={() => setDeleteToggle(false)}
+                    className={Style.postDeleteButtonNo}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </>
       ) : (
