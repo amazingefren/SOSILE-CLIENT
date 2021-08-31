@@ -48,9 +48,16 @@ const PostCard = ({ props }: { props: FeedPost }) => {
     }
   };
 
+  const handlePostRoute = () => {
+    const to = "/post/" + props.id;
+    if (router.route != to) {
+      router.push("/post/" + props.id);
+    }
+  };
+
   return (
     <div className={Style.container}>
-      <div className={Style.postTop}>
+      <div className={Style.postTop} onClick={handlePostRoute}>
         <div className={Style.postUserImage} onClick={handleUserRoute}></div>
         <div className={Style.postUserNest}>
           <div className={Style.postDisplayName}>
@@ -70,7 +77,9 @@ const PostCard = ({ props }: { props: FeedPost }) => {
           <div className={Style.postTime}>{convertDate(props.date)}</div>
         </div>
       </div>
-      <div className={Style.postMiddle}>{props.content}</div>
+      <div className={Style.postMiddle} onClick={handlePostRoute}>
+        {props.content}
+      </div>
       <div className={Style.postBottom}>
         <div className={Style.postBottomComments}>
           <span>{props._count.comments} comments</span>
