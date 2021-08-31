@@ -30,24 +30,9 @@ const FEED_QUERY = gql`
 `;
 
 const HomePostFeed = () => {
-  const {
-    data: postData,
-    loading: postLoading,
-    refetch,
-    // startPolling,
-    // stopPolling,
-  } = useQuery(FEED_QUERY, { skip: false });
-
-  useEffect(() => {
-    refetch();
-    // previous data + append new instead of remap postData?
-    // this would require a seperate state to maintain session
-    // without a new postData change clearing older posts
-    // startPolling(5000);
-    // return () => {
-    //   stopPolling();
-    // };
-  }, [refetch]);
+  const { data: postData, loading: postLoading } = useQuery(FEED_QUERY, {
+    fetchPolicy: "no-cache",
+  });
 
   return (
     <div id={HomeStyles.postContainer}>
