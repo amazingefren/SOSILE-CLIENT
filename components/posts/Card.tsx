@@ -55,10 +55,14 @@ const PostCard = ({
   props,
   temp = false,
   comment = false,
+  toggleComments = false,
+  adjuster = null,
 }: {
   props: FeedPost | Comment;
   temp?: boolean;
   comment?: boolean;
+  toggleComments?: boolean;
+  adjuster?: any;
 }) => {
   const { user: me }: { user: CachedUser | null } = cachedUser();
   const [postLikes, setPostLikes] = useState(Number(props._count?.likes));
@@ -66,6 +70,9 @@ const PostCard = ({
   const [deleteToggle, setDeleteToggle] = useState(false);
   const [shareToggle, setShareToggle] = useState(false);
   const [commentToggle, setCommentToggle] = useState(false);
+  const [commentCount, setCommentCount] = useState<number>(
+    (props._count?.comments as number) || 0
+  );
   const [loaded, setLoaded] = useState<boolean>(false);
 
   const [
@@ -103,6 +110,9 @@ const PostCard = ({
   const [deletePost] = useMutation(DELETE_POST_MUTATION, {
     onCompleted: ({ deletePost }) => {
       if (deletePost) {
+        if (adjuster) {
+          adjuster("decrease");
+        }
         setLoaded(false);
       }
     },
@@ -126,12 +136,12 @@ const PostCard = ({
     }
   };
 
-  const handlePostRoute = () => {
-    const to = "/post/" + props.id;
-    if (router.route != to) {
-      router.push("/post/" + props.id);
-    }
-  };
+  // const handlePostRoute = () => {
+  //   const to = "/post/" + props.id;
+  //   if (router.route != to) {
+  //     router.push("/post/" + props.id);
+  //   }
+  // };
 
   const handlePostDelete = () => {
     deletePost({ variables: { id: props.id, comment } });
@@ -147,6 +157,22 @@ const PostCard = ({
       setCommentToggle(true);
     } else {
       setCommentToggle(false);
+    }
+  };
+
+  useEffect(() => {
+    if (toggleComments) {
+      handleCommentToggle();
+    }
+  }, [toggleComments]);
+
+  const adjustComment = (opt: "increase" | "decrease") => {
+    if (!comment) {
+      if (opt == "increase") {
+        setCommentCount(commentCount + 1);
+      } else if (opt === "decrease") {
+        setCommentCount(commentCount - 1);
+      }
     }
   };
 
@@ -193,7 +219,7 @@ const PostCard = ({
                       className={Style.postBottomComments}
                       onClick={handleCommentToggle}
                     >
-                      <span>{props._count?.comments} comments</span>
+                      <span>{commentCount} comments</span>
                     </div>
                   )}
                   <div
@@ -263,9 +289,18 @@ const PostCard = ({
             )}
             {commentToggle && commentData && !commentLoading && (
               <div className={Style.postCommentContainer}>
-                <CreatePost postId={props.id} comment={true} />
+                <CreatePost
+                  postId={props.id}
+                  comment={true}
+                  adjuster={adjustComment}
+                />
                 {commentData.map((comment: Comment) => (
-                  <PostCard key={comment.id} comment={true} props={comment} />
+                  <PostCard
+                    key={comment.id}
+                    comment={true}
+                    props={comment}
+                    adjuster={adjustComment}
+                  />
                 ))}
               </div>
             )}

@@ -38,9 +38,10 @@ const CREATE_COMMENT_MUTATION = gql`
 interface CreatePostProps {
   postId?: number;
   comment?: boolean;
+  adjuster?: any;
 }
 
-const CreatePost = ({ postId, comment = false }: CreatePostProps) => {
+const CreatePost = ({ postId, comment = false, adjuster }: CreatePostProps) => {
   const { user: me } = cachedUser() as { user: Required<CachedUser> };
   const [userInput, setUserInput] = useState<string>("");
   // const [disabled, setDisabled] = useState<boolean>(true);
@@ -51,6 +52,7 @@ const CreatePost = ({ postId, comment = false }: CreatePostProps) => {
     comment ? CREATE_COMMENT_MUTATION : CREATE_POST_MUTATION,
     {
       onCompleted: ({ createPost, createComment }) => {
+        adjuster("increase");
         comment
           ? setNewPost([createComment, ...newPost])
           : setNewPost([createPost, ...newPost]);
@@ -75,13 +77,13 @@ const CreatePost = ({ postId, comment = false }: CreatePostProps) => {
     setLoaded(true);
   }, [loaded]);
 
-  useEffect(() => {
-    setUserInput(window.localStorage.getItem("create-post-input") || "");
-  }, []);
+  // useEffect(() => {
+  //   setUserInput(window.localStorage.getItem("create-post-input") || "");
+  // }, []);
 
-  useEffect(() => {
-    window.localStorage.setItem("create-post-input", userInput);
-  }, [userInput]);
+  // useEffect(() => {
+  //   window.localStorage.setItem("create-post-input", userInput);
+  // }, [userInput]);
 
   return loaded ? (
     <>
@@ -111,6 +113,7 @@ const CreatePost = ({ postId, comment = false }: CreatePostProps) => {
             props={{ ...post, author: me }}
             temp={true}
             comment={true}
+            adjuster={adjuster}
           />
         ))}
     </>

@@ -12,7 +12,9 @@ export interface Comment {
 }
 class CommentCount {
   likes?: number;
-  comments?: Comment[] = [];
+
+  // ignore
+  comments?: number;
 }
 export interface Post {
   id: number;
