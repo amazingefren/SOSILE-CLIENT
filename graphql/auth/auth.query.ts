@@ -10,9 +10,19 @@ const AuthLogin = gql`
   }
 `;
 
+const AuthRegister = gql`
+  mutation register($data: AuthRegisterUserInput!) {
+    AuthRegisterUser(data: $data) {
+      username
+      token
+      id
+    }
+  }
+`;
+
 const AuthCheck = gql`
   query AuthCheck {
     AuthCheck
   }
 `;
-export { AuthLogin, AuthCheck };
+export { AuthLogin, AuthCheck, AuthRegister };

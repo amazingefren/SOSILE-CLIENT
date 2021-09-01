@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import IndexStyle from "../styles/index/index.module.scss";
-import Login from "../components/index/Login";
+import LoginForm from "../components/index/Login";
 import { protect } from "../hooks/protected";
+import RegisterForm from "../components/index/Register";
 
 const Index: NextPage = () => {
   const { isAuth } = protect({ to: "/home", reverse: true });
+  const [register, setRegister] = useState<boolean>(false);
 
   return (
     <div className={IndexStyle.container}>
@@ -21,8 +23,14 @@ const Index: NextPage = () => {
             <h1>SOSILE</h1>
           </div>
           <div className={IndexStyle.mainRight}>
-            <Login />
-            <div>Sign Up</div>
+            {register ? <RegisterForm /> : <LoginForm />}
+            <div
+              onClick={() => {
+                setRegister(!register);
+              }}
+            >
+              {register ? "Sign In" : "Sign Up"}
+            </div>
           </div>
         </main>
       )}

@@ -1,31 +1,36 @@
-import LoginStyle from "./Login.module.scss";
 import { useMutation } from "@apollo/client";
-import { AuthLogin } from "../../graphql/auth/auth.query";
-import { FormEvent, useEffect, useState } from "react";
+import router from "next/router";
+import { FormEvent, useState } from "react";
 import { isAuthInVar } from "../../apollo.cache";
-import router from "next/dist/client/router";
+import { AuthRegister } from "../../graphql/auth/auth.query";
+import RegisterStyle from "./Register.module.scss";
 
-const LoginForm = () => {
-  const [handleLogin, { loading, error }] = useMutation(AuthLogin, {
+const RegisterForm = () => {
+  const [handleRegister, { loading, error }] = useMutation(AuthRegister, {
     fetchPolicy: "network-only",
     onCompleted: (data) => {
-      window.localStorage.removeItem("auth-login-username");
-      setPayload({ username: "", password: "" });
-      window.localStorage.setItem("refresh_token", data.AuthLoginUser.token);
+      console.log(data);
+      setPayload({ displayName: "", email: "", password: "", username: "" });
+      window.localStorage.setItem("refresh_token", data.AuthRegisterUser.token);
       isAuthInVar(true);
       router.replace("/home");
     },
     onError: (e) => {
-      console.log(e.message);
+      console.log(e);
     },
   });
 
-  const [payload, setPayload] = useState({ username: "", password: "" });
+  const [payload, setPayload] = useState({
+    username: "",
+    email: "",
+    password: "",
+    displayName: "",
+  });
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setPayload((old) => ({ ...old, password: "" }));
-    await handleLogin({
+    await handleRegister({
       variables: { data: payload },
     });
   };
@@ -48,27 +53,20 @@ const LoginForm = () => {
     }
   };
 
-  // Get username from localstorage
-  useEffect(() => {
-    let data = window.localStorage.getItem("auth-login-username") || "";
-    setPayload({
-      username: data,
-      password: "",
-    });
-  }, []);
-
-  // Set username to localstorage
-  useEffect(() => {
-    window.localStorage.setItem("auth-login-username", payload.username);
-  }, [payload.username]);
-
   return (
-    <div id={LoginStyle.container}>
-      <form id="login-form" onSubmit={handleSubmit}>
-        <h1>Login</h1>
+    <div id={RegisterStyle.container}>
+      <form id="register-form" onSubmit={handleSubmit}>
+        <h1>Register</h1>
         {error && <span>{error.message}</span>}
         <br />
-        {/*<label htmlFor="username">username</label>*/}
+        <input
+          name="email"
+          placeholder="email"
+          type="email"
+          value={payload.email || ""}
+          onChange={handleInput}
+          required
+        />
         <input
           name="username"
           placeholder="username"
@@ -77,8 +75,14 @@ const LoginForm = () => {
           onChange={handleInput}
           required
         />
-        <br />
-        {/*<label htmlFor="password">password</label>*/}
+        <input
+          name="displayName"
+          placeholder="Display Name"
+          type="text"
+          value={payload.displayName || ""}
+          onChange={handleInput}
+          required
+        />
         <input
           name="password"
           placeholder="password"
@@ -87,11 +91,10 @@ const LoginForm = () => {
           onChange={handleInput}
           required
         />
-        <br />
         <button type="submit">Login</button>
       </form>
     </div>
   );
 };
 
-export default LoginForm;
+export default RegisterForm;
