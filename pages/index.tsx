@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
-import IndexStyle from "../styles/index/index.module.scss";
+import IndexStyle from "./index.module.scss";
 import LoginForm from "../components/index/Login";
 import { protect } from "../hooks/protected";
 import RegisterForm from "../components/index/Register";

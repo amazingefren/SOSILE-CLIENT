@@ -1,5 +1,5 @@
 import React, { ReactChildren, ReactElement } from "react";
-import LayoutStyle from "../../styles/layout/layout.module.scss";
+import LayoutStyle from "./Layout.module.scss";
 import Head from "next/head";
 import Navbar from "../navbar/Navbar";
 import Header from "../header/Header";

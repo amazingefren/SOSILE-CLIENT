@@ -1,5 +1,4 @@
 @import "../../styles/theme.scss";
-@import "../../styles/layout/layout.module.scss";
 #root {
   height: 100%;
   display: flex;
@@ -10,10 +9,10 @@
   position: relative;
 }
 
-#center {
-  // width: 100%;
-  // margin-top: -$topHeight;
-}
+// #center {
+// width: 100%;
+// margin-top: -$topHeight;
+// }
 
 #end {
   position: absolute;

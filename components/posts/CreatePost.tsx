@@ -6,7 +6,7 @@ import cachedUser from "../../hooks/getUser";
 import PostCard from "./Card";
 // import { CachedUser } from "../../graphql/user/user.model";
 // import cachedUser from "../../hooks/getUser";
-import CreatePostStyle from "./createpost.module.scss";
+import CreatePostStyle from "./CreatePost.module.scss";
 
 const CREATE_POST_MUTATION = gql`
   mutation createpost($content: String!) {

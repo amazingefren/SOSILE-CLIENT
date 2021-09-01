@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { FeedPost, Comment } from "../../graphql/post/post.model";
 import { CachedUser } from "../../graphql/user/user.model";
 import cachedUser from "../../hooks/getUser";
-import Style from "./card.module.scss";
+import Style from "./Card.module.scss";
 import CreatePost from "./CreatePost";
 
 const GET_POST_COMMENT_QUERY = gql`

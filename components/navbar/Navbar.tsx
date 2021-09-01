@@ -3,7 +3,7 @@ import router, { useRouter } from "next/dist/client/router";
 import { useEffect, useState } from "react";
 import { isAuthInVar } from "../../apollo.cache";
 import cachedUser from "../../hooks/getUser";
-import NavbarStyle from "./navbar.module.scss";
+import NavbarStyle from "./Navbar.module.scss";
 
 const LOGOUT = gql`
   mutation LogOut {

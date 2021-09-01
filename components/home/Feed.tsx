@@ -1,7 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
 import React from "react";
 import { FeedPost } from "../../graphql/post/post.model";
-import HomeStyles from "../../styles/home/home.module.scss";
 import PostCard from "../posts/Card";
 import CreatePost from "../posts/CreatePost";
 
@@ -35,7 +34,7 @@ const HomePostFeed = () => {
   });
 
   return (
-    <div id={HomeStyles.postContainer}>
+    <div>
       <CreatePost />
       {postLoading && <div>SPINNER</div>}
       {postData?.getFeed &&

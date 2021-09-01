@@ -2,7 +2,7 @@ import { gql, useLazyQuery } from "@apollo/client";
 import router from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { User } from "../../graphql/user/user.model";
-import HeaderStyle from "./header.module.scss";
+import HeaderStyle from "./Header.module.scss";
 
 const SEARCH_QUERY = gql`
   query searchInput($username: String!) {

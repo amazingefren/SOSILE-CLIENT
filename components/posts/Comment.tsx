@@ -1,7 +1,7 @@
 import router from "next/router";
 import { PostComment } from "../../graphql/post/post.model";
 import CommentStyle from "./comment.module.scss";
-import PostStyle from "./card.module.scss";
+import PostStyle from "./Card.module.scss";
 
 const CommentCard = ({ comment }: { comment: Required<PostComment> }) => {
   const handleUserRoute = () => {
