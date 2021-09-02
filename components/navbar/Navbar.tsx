@@ -65,7 +65,7 @@ const Navbar = () => {
       <div id={NavbarStyle.center}>
         <NavbarButton to="/home">Home</NavbarButton>
         <NavbarButton to={"/user/" + me?.username}>Profile</NavbarButton>
-        <NavbarButton to="">Technology</NavbarButton>
+        <NavbarButton to="/home">Technology</NavbarButton>
       </div>
       <div id={NavbarStyle.end}>
         <div

@@ -1,4 +1,4 @@
-import LoginStyle from "./Login.module.scss";
+import LoginStyle from "./Shared.module.scss";
 import { useMutation } from "@apollo/client";
 import { AuthLogin } from "../../graphql/auth/auth.query";
 import { FormEvent, useEffect, useState } from "react";
@@ -63,32 +63,36 @@ const LoginForm = () => {
   }, [payload.username]);
 
   return (
-    <div id={LoginStyle.container}>
-      <form id="login-form" onSubmit={handleSubmit}>
-        <h1>Login</h1>
+    <div className={LoginStyle.container}>
+      <form id="login-form" onSubmit={handleSubmit} className={LoginStyle.form}>
         {error && <span>{error.message}</span>}
-        <br />
         {/*<label htmlFor="username">username</label>*/}
         <input
           name="username"
-          placeholder="username"
+          placeholder="Username"
           type="username"
           value={payload.username || ""}
           onChange={handleInput}
+          className={LoginStyle.formField}
           required
         />
-        <br />
         {/*<label htmlFor="password">password</label>*/}
         <input
           name="password"
-          placeholder="password"
+          placeholder="Password"
           type="password"
           value={payload.password || ""}
           onChange={handleInput}
+          className={LoginStyle.formField}
           required
         />
-        <br />
-        <button type="submit">Login</button>
+        <button
+          type="submit"
+          className={LoginStyle.formSubmit}
+          disabled={!payload.password || !payload.username}
+        >
+          Login
+        </button>
       </form>
     </div>
   );

@@ -3,7 +3,7 @@ import router from "next/router";
 import { FormEvent, useState } from "react";
 import { isAuthInVar } from "../../apollo.cache";
 import { AuthRegister } from "../../graphql/auth/auth.query";
-import RegisterStyle from "./Register.module.scss";
+import RegisterStyle from "./Shared.module.scss";
 
 const RegisterForm = () => {
   const [handleRegister, { loading, error }] = useMutation(AuthRegister, {
@@ -54,25 +54,29 @@ const RegisterForm = () => {
   };
 
   return (
-    <div id={RegisterStyle.container}>
-      <form id="register-form" onSubmit={handleSubmit}>
-        <h1>Register</h1>
+    <div className={RegisterStyle.container}>
+      <form
+        id="register-form"
+        onSubmit={handleSubmit}
+        className={RegisterStyle.form}
+      >
         {error && <span>{error.message}</span>}
-        <br />
         <input
           name="email"
-          placeholder="email"
+          placeholder="Email"
           type="email"
           value={payload.email || ""}
           onChange={handleInput}
+          className={RegisterStyle.formField}
           required
         />
         <input
           name="username"
-          placeholder="username"
+          placeholder="Username"
           type="username"
           value={payload.username || ""}
           onChange={handleInput}
+          className={RegisterStyle.formField}
           required
         />
         <input
@@ -81,17 +85,30 @@ const RegisterForm = () => {
           type="text"
           value={payload.displayName || ""}
           onChange={handleInput}
+          className={RegisterStyle.formField}
           required
         />
         <input
           name="password"
-          placeholder="password"
+          placeholder="Password"
           type="password"
           value={payload.password || ""}
           onChange={handleInput}
+          className={RegisterStyle.formField}
           required
         />
-        <button type="submit">Login</button>
+        <button
+          type="submit"
+          className={RegisterStyle.formSubmit}
+          disabled={
+            !payload.password ||
+            !payload.displayName ||
+            !payload.username ||
+            !payload.email
+          }
+        >
+          Sign Up
+        </button>
       </form>
     </div>
   );
