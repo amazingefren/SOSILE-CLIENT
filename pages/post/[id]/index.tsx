@@ -57,7 +57,7 @@ const PostProfile = () => {
 
   /* DEBUG */
   useEffect(() => {
-    console.log(postData);
+    // console.log(postData);
   }, [postData]);
 
   return (

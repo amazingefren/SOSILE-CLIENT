@@ -9,3 +9,5 @@ export class postService {
 
   }
 } */
+
+export {};

@@ -9,14 +9,14 @@ const RegisterForm = () => {
   const [handleRegister, { loading, error }] = useMutation(AuthRegister, {
     fetchPolicy: "network-only",
     onCompleted: (data) => {
-      console.log(data);
+      // console.log(data);
       setPayload({ displayName: "", email: "", password: "", username: "" });
       window.localStorage.setItem("refresh_token", data.AuthRegisterUser.token);
       isAuthInVar(true);
       router.replace("/home");
     },
     onError: (e) => {
-      console.log(e);
+      // console.log(e);
     },
   });
 

@@ -38,3 +38,5 @@ export function USER_POST(fields: PostFields, opts: PostIncludeOpts) {
   }
     `;
 } */
+
+export {};

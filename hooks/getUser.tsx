@@ -35,7 +35,7 @@ const cachedUser = (): { user: CachedUser | null } => {
       }
     },
     onError: () => {
-      console.log("HELLO?");
+      // console.log("HELLO?");
     },
   });
 

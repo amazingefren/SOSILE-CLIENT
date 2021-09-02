@@ -12,9 +12,9 @@ const LOGOUT = gql`
 `;
 
 const handleLogOff = async (data: any) => {
-  console.log(data);
+  // console.log(data);
   if (data.AuthLogout) {
-    console.log("LOGGING OUT");
+    // console.log("LOGGING OUT");
     window.localStorage.removeItem("refresh_token");
   }
 };
@@ -56,7 +56,7 @@ const Navbar = () => {
       isAuthInVar(false);
       router.replace("/");
     },
-    onError: (e) => console.log(e),
+    // onError: (e) => console.log(e),
     context: { headers: { Authorization: token } },
   });
 

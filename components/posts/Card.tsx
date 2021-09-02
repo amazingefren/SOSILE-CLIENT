@@ -84,7 +84,7 @@ const PostCard = ({
   ] = useLazyQuery(GET_POST_COMMENT_QUERY, {
     fetchPolicy: "no-cache",
     onCompleted: ({ findPost: { comments: commentData } }) => {
-      console.log(commentData);
+      // console.log(commentData);
     },
   });
 

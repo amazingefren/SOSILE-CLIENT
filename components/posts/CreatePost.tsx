@@ -75,7 +75,7 @@ const CreatePost = ({
   };
 
   useEffect(() => {
-    console.log(newPost);
+    // console.log(newPost);
   }, [newPost]);
 
   useEffect(() => {

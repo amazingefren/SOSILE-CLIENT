@@ -17,7 +17,7 @@ export const typeDefs = gql`
 
 const refreshAuth = async () => {
   const token = window.localStorage.getItem("refresh_token") || "";
-  console.log("[refreshAuth]: triggered");
+  // console.log("[refreshAuth]: triggered");
   await client
     .mutate({
       mutation: REFRESH_AUTH,
@@ -25,8 +25,8 @@ const refreshAuth = async () => {
     })
     .then(({ data }) => {
       if (data.AuthRefresh) {
-        console.log(data);
-        console.log("ok");
+        // console.log(data);
+        // console.log("ok");
         return;
       } else if (data.AuthRefresh == false) {
         window.localStorage.removeItem("refresh_token");
@@ -56,18 +56,18 @@ const errorLink = onError(({ graphQLErrors, operation, forward }) => {
       }
     }
     if (authTrigger) {
-      console.log("[ErrorLink]: Triggered Authentication");
+      // console.log("[ErrorLink]: Triggered Authentication");
       return (
         fromPromise(
           refreshAuth()
             .then(() => {
-              console.log("[refreshAuth]: Promise Catched");
+              // console.log("[refreshAuth]: Promise Catched");
               isAuthInVar(true);
               return forward(operation);
             })
             .catch((error) => {
-              console.log("Error", error);
-              console.log("hello?");
+              // console.log("Error", error);
+              // console.log("hello?");
               window.localStorage.removeItem("refresh_token");
               isAuthInVar(false);
               return;

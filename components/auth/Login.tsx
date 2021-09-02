@@ -16,7 +16,7 @@ const LoginForm = () => {
       router.replace("/home");
     },
     onError: (e) => {
-      console.log(e.message);
+      // console.log(e.message);
     },
   });
 
