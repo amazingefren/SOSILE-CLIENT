@@ -14,8 +14,10 @@ jobs:
         node-version: [16.x]
         
     steps:
-    # - uses: actions/checkout@v2
-    - run: git pull
+    - uses: actions/checkout@v2
+      with:
+        clean: false
+#     - run: git pull
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
