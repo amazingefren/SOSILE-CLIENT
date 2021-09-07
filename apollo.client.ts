@@ -1,6 +1,7 @@
 import { ApolloClient, gql, HttpLink, from, fromPromise } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 import { cache, isAuthInVar } from "./apollo.cache";
+require("dotenv").config();
 
 const REFRESH_AUTH = gql`
   mutation refresh {
@@ -86,7 +87,7 @@ const errorLink = onError(({ graphQLErrors, operation, forward }) => {
 });
 
 const httpLink = new HttpLink({
-  uri: "http://localhost:8000/graphql",
+  uri: process.env.API_URI,
   credentials: "include",
 });
 
