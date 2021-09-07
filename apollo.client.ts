@@ -1,7 +1,6 @@
 import { ApolloClient, gql, HttpLink, from, fromPromise } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 import { cache, isAuthInVar } from "./apollo.cache";
-require("dotenv").config();
 
 const REFRESH_AUTH = gql`
   mutation refresh {
