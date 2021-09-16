@@ -129,7 +129,7 @@ const UserProfile = () => {
   return (
     <Layout title={user ? user.username + "@" + username : ""}>
       <div id={ProfileStyle.root}>
-        {userLoading && <div>Loading...</div>}
+        {/*userLoading && <div>Loading...</div>*/}
         {user && !userLoading && (
           <div id={ProfileStyle.header}>
             <div id={ProfileStyle.headerImg}></div>
@@ -164,7 +164,7 @@ const UserProfile = () => {
             </div>
           </div>
         )}
-        {postLoading && <div>Loading...</div>}
+        {/*postLoading && <div>Loading...</div>*/}
         {user && !postLoading && (
           <div id={ProfileStyle.selection}>
             <div className={ProfileStyle.selectionFlex}>

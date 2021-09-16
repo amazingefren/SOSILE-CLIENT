@@ -36,7 +36,7 @@ const HomePostFeed = () => {
   return (
     <div>
       <CreatePost />
-      {postLoading && <div>SPINNER</div>}
+      {/*postLoading && <div>SPINNER</div>*/}
       {postData?.getFeed &&
         postData?.getFeed.map((post: FeedPost) => {
           return <PostCard key={post.id} props={post} />;

@@ -86,7 +86,7 @@ const errorLink = onError(({ graphQLErrors, operation, forward }) => {
 });
 
 const httpLink = new HttpLink({
-  uri: process.env.API_URI,
+  uri: process.env.API_URI || "http://localhost:8000/graphql",
   credentials: "include",
 });
 

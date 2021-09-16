@@ -162,8 +162,8 @@
   align-items: center;
   font-size: 1.3em;
   cursor: auto;
-  .postDeleteHeader {
-  }
+  // .postDeleteHeader {
+  // }
   .postDeleteButtonYes,
   .postDeleteButtonNo {
     border: none;
@@ -201,6 +201,9 @@
     justify-content: space-between;
     padding: 20px;
     width: 100%;
+    .postShareLink {
+      width: 100%;
+    }
     display: flex;
     // position: relative;
     .postShareClose {
