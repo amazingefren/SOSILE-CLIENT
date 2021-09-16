@@ -254,7 +254,7 @@ const PostCard = ({
                     className={Style.postShareLink}
                     value={
                       !comment
-                        ? "http://localhost:3000/post/" + props.id
+                        ? "https://sosile.amazingefren.com/post/" + props.id
                         : "NOT IMPLEMENTED"
                     }
                     autoFocus={true}
