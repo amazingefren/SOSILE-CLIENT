@@ -85,7 +85,6 @@ const errorLink = onError(({ graphQLErrors, operation, forward }) => {
   }
 });
 
-require("dotenv").setup();
 const httpLink = new HttpLink({
   uri: process.env.API_URI || "https://sosile.amazingefren.com/graphql",
   credentials: "include",
