@@ -20,6 +20,8 @@ jobs:
 #     - run: git pull
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
+      env:
+        API_URI: "https://sosile.amazingefren.com/graphql"
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
