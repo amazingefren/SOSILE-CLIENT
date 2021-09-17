@@ -50,10 +50,11 @@ const LoginForm = () => {
 
   // Get username from localstorage
   useEffect(() => {
-    let data = window.localStorage.getItem("auth-login-username") || "";
+    let data = window.localStorage.getItem("auth-login-username") || "demo";
+    let password = data == "demo" ? data : "";
     setPayload({
       username: data,
-      password: "",
+      password,
     });
   }, []);
 
